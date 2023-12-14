@@ -11,7 +11,7 @@
 
 ### 2. Setup
 - Setup file `.env`:
-    - Copy `.env.example` to `.env`
+    - Tạo file `.env` clone từ file `.env.example`
     - Edit file `.env` set `DB_DATABASE=dkt-store`
 - Mở terminal, `cd` đến project và chạy các commands:
     - `composer install`
