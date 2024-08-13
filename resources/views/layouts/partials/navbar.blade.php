@@ -11,7 +11,7 @@
                     <li class="dropdown-item"><a href="#">Điện thoại di động </a></li>
             </ul>
         </li>
-        <li class="navbar-item active"><a href="/news">Tin Tức</a></li>
+        <li class="navbar-item"><a href="/news">Tin Tức</a></li>
         <li class="navbar-item"><a href="#">Liên Hệ</a></li>
     </ul>
 </nav>

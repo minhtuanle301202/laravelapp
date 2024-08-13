@@ -19,9 +19,6 @@ Route::get('/home', function () {
     return view('layouts.users.master');
 })->name('home');
 
-
-
-
 Route::middleware('guest')->group(function () {
     Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [UserController::class, 'handleLoginUser']);

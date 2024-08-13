@@ -289,3 +289,6 @@ header a {
     }
 }
 
+.logout-form {
+    display: none;
+}

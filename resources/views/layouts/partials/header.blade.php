@@ -14,7 +14,7 @@
         <div class="right-top-header">
             @auth
                 <p>Chào mừng, {{ Auth::user()->username }} <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng xuất</a></p>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                     @csrf
                 </form>
             @endauth

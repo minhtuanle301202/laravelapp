@@ -15,7 +15,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 3" style="">
+                <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 3" >
 					<span class="image">
 						<img class="lazyload img-responsive loading" src="//bizweb.dktcdn.net/100/047/633/themes/887206/assets/image_service2.png?1676252851087" alt="Khuyến mại" data-was-processed="true">
 					</span>
