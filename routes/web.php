@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+
+Route::get('/home', function () {
     return view('layouts.users.master');
+})->name('home');
+
+
+
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [UserController::class, 'handleLoginUser']);
+    Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [UserController::class, 'handleRegisterUser']);
 });
 
-Route::get('home',function () {
-    return view('layouts.partials.header');
-});
+Route::post('/logout',[UserController::class, 'handleLogout'])->name('logout');

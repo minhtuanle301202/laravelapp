@@ -12,14 +12,24 @@
         </div>
         <div class="mid-top-header"></div>
         <div class="right-top-header">
+            @auth
+                <p>Chào mừng, {{ Auth::user()->username }} <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng xuất</a></p>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            @endauth
+
+            @guest
                 <div class="login">
                     <i class="fa-solid fa-user"></i>
-                    <a href="#" class="login">Đăng nhập</a>
+                    <a href="{{ route('login') }}" class="login">Đăng nhập</a>
                 </div>
                 <div class="register">
                     <i class="fa-solid fa-user-plus"></i>
-                    <a href="#" class="register">Đăng ký</a>
+                    <a href="{{ route('register') }}" class="register">Đăng ký</a>
                 </div>
+            @endguest
+
         </div>
     </div>
     <div class="bottom-header">

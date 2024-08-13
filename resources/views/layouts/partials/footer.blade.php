@@ -2,7 +2,7 @@
     <div class="container">
         <div class="home-service">
             <div class="swiper-wrapper">
-                <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 3" style="width: 360px; margin-right: 30px;">
+                <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 3">
 					<span class="image">
 						<img class="lazyload img-responsive loading" src="//bizweb.dktcdn.net/100/047/633/themes/887206/assets/image_service1.png?1676252851087" alt="Giao hàng miễn phí" data-was-processed="true">
 					</span>
@@ -15,7 +15,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 3" style="width: 360px; margin-right: 30px;">
+                <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 3" style="">
 					<span class="image">
 						<img class="lazyload img-responsive loading" src="//bizweb.dktcdn.net/100/047/633/themes/887206/assets/image_service2.png?1676252851087" alt="Khuyến mại" data-was-processed="true">
 					</span>
@@ -28,7 +28,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="swiper-slide" role="group" aria-label="3 / 3" style="width: 360px; margin-right: 30px;">
+                <div class="swiper-slide" role="group" aria-label="3 / 3" >
 					<span class="image">
 						<img class="lazyload img-responsive loading" src="//bizweb.dktcdn.net/100/047/633/themes/887206/assets/image_service3.png?1676252851087" alt="Hoàn trả lại tiền" data-was-processed="true">
 					</span>

@@ -8,7 +8,7 @@
                     <li class="dropdown-item"><a href="#">Điện thoại di động</a></li>
                     <li class="dropdown-item"><a href="#">Điện thoại di động</a></li>
                     <li class="dropdown-item"><a href="#">Điện thoại di động</a></li>
-                    <li class="dropdown-item"><a href="#">Điện thoại di đ��ng</a></li>
+                    <li class="dropdown-item"><a href="#">Điện thoại di động </a></li>
             </ul>
         </li>
         <li class="navbar-item active"><a href="/news">Tin Tức</a></li>

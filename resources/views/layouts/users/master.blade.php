@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="{{ asset('css/partials/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/partials/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/partials/footer.css') }}">
+    <title>@yield('title')</title>
 </head>
 <body>
 @include('layouts.partials.header')
 @include('layouts.partials.navbar')
 <div class="content-container">
-
+    @yield('content')
 </div>
 @include('layouts.partials.footer')
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
