@@ -1,0 +1,112 @@
+.hot-products-container {
+    margin-bottom: 30px;
+}
+.hot-products-container .header-hot-products {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.hot-products-container .hot-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+.hot-products-container .hot-item > a {
+    color: #666;
+    display: block;
+    padding: 5px;
+    margin-left: 5px;
+
+}
+.hot-products-container .hot-item > a:hover {
+    text-decoration: none;
+    background-color: #77ca64;
+    border-radius: 10px;
+    color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.hot-products-container .hot-item.active a {
+    background-color: #77ca64;
+    border-radius: 10px;
+    color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.hot-products-container .middle-hot-products {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+.hot-products-container .product-link {
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.product-link:hover .product-item {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.hot-products-container .product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2px;
+    border: 1px solid #dbd6d6;
+    width: 100%;
+    margin: 0 auto;
+}
+.hot-products-container .product-item > .name {
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #a5a5a5;
+}
+
+.hot-products-container .product-item > .price {
+    font-size: 14px;
+    color: #77ca64;
+}
+
+.hot-products-container .product-item > img {
+    width: 100%;
+    height: auto;
+}
+.hot-products-container .product-item > * {
+    margin-bottom: 10px;
+}
+.hot-products-container .add-to-cart {
+    border-radius: 20px;
+    background-color: white;
+    border: 1px solid #666;
+    color: #666;
+    font-size: 14px;
+    padding: 10px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+.hot-products-container .add-to-cart:hover {
+    background-color: #77ca64;
+    color: white;
+    border: 1px solid #77ca64;
+}
+.hot-products-container .is-loved {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .hot-products-container .hot-menu {
+        display: none;
+    }
+}

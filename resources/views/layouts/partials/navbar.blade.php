@@ -5,10 +5,9 @@
         <li class="navbar-item dropdown">
             <a href="#">Sản Phẩm <span class="dropdown-arrow">&#9662;</span></a>
             <ul class="dropdown-menu">
-                    <li class="dropdown-item"><a href="#">Điện thoại di động</a></li>
-                    <li class="dropdown-item"><a href="#">Điện thoại di động</a></li>
-                    <li class="dropdown-item"><a href="#">Điện thoại di động</a></li>
-                    <li class="dropdown-item"><a href="#">Điện thoại di động </a></li>
+                @foreach ($categories as $category)
+                    <li class="dropdown-item"><a href="#">{{ $category->name }}</a></li>
+                @endforeach
             </ul>
         </li>
         <li class="navbar-item"><a href="/news">Tin Tức</a></li>

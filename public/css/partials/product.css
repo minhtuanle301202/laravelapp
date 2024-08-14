@@ -1,0 +1,109 @@
+.products-container {
+    margin-bottom: 30px;
+}
+.header-products {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.category-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+.category-item > a {
+    color: #666;
+    display: block;
+    padding: 5px;
+    margin-left: 5px;
+}
+.category-item > a:hover {
+    text-decoration: none;
+    background-color: #77ca64;
+    border-radius: 10px;
+    color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.category-item.active a {
+    background-color: #77ca64;
+    border-radius: 10px;
+    color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.middle-products {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.product-link:hover {
+    text-decoration: none;
+}
+.product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2px;
+    border: 1px solid #dbd6d6;
+    width: 100%;
+    margin: 0 auto;
+}
+.product-item > .name {
+    text-align: center;
+    font-size: 14px;
+    height: 40px;
+}
+.product-item > img {
+    width: 100%;
+    height: auto;
+}
+.product-item > * {
+    margin-bottom: 10px;
+}
+.add-to-cart {
+    border-radius: 20px;
+    background-color: white;
+    border: 1px solid #666;
+    color: #666;
+    font-size: 14px;
+    padding: 10px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+.add-to-cart:active,
+.add-to-cart:focus,
+.add-to-cart:hover {
+    background-color: #77ca64 !important;
+    color: white;
+    border: 1px solid #77ca64 !important;
+    box-shadow: 0 0 0 .1rem #77ca64 !important;
+}
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.page-item.active .page-link {
+    background-color: #77ca64;
+    border-color: #77ca64;
+    color: white;
+}
+.page-item .page-link {
+    color: #77ca64;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+.page-item .page-link:hover {
+    color: white;
+    background-color: #77ca64;
+    border-color: #77ca64;
+}
