@@ -25,7 +25,6 @@ class UserService {
     public function loginUser($validatedData)
     {
         if (Auth::attempt(['email'=> $validatedData['email'],'password' => $validatedData['password']])) {
-
             return Auth::user();
         }
         return null;

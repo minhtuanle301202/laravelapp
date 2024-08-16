@@ -11,7 +11,7 @@
             <a href="#" class="link-dropdown">Sản phẩm <span class="dropdown-arrow">&#9656;</span></a>
             <ul class="dropdown-menu">
                 @foreach($categories as $category)
-                    <li class="dropdown-item"><a href="#">{{ $category->name }}</a></li>
+                    <li class="dropdown-item"><a class="dropdown-item-link" data-id="{{ $category->id }}" href="#">{{ $category->name }}</a></li>
                 @endforeach
             </ul>
         </li>
@@ -19,3 +19,5 @@
         <li class="sidebar-item"><a href="#">Liên hệ</a></li>
     </ul>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('js/sidebar.js') }}"></script>

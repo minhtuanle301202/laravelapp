@@ -41,11 +41,7 @@ class UserController extends Controller
         $user = $this->userService->loginUser($validatedData);
 
         if ($user) {
-            if ($user['role'] == 'admin') {
-                return redirect()->route('admin.dashboard');
-            } else {
                 return redirect()->route('home');
-            }
         } else {
             return redirect()->route('login')->withErrors(['login_error' => 'Tên người dùng hoặc mật khẩu không đúng.']);
         }

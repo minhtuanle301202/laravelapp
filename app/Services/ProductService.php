@@ -28,5 +28,11 @@ class ProductService
         $products = $this->productRepository->getProductsByCategoryIdandPagination($id);
         return $products;
     }
+
+    public function getProductById($id)
+    {
+        $product = $this->productRepository->find($id);
+        return $product;
+    }
 }
 ?>

@@ -64,21 +64,41 @@ $(document).ready(function() {
         $('#pagination').html(paginationHtml);
     }
 
-    // Sự kiện khi nhấp vào một danh mục
-    $('.category-menu .category-item').click(function(event) {
-        event.preventDefault();
-        var categoryId = $(this).find('.category-link').data('id');
+    $('.dropdown-menu .dropdown-item').click(function(event) {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
 
+        // Lấy ID của danh mục từ dropdown item
+        var categoryId = $(this).find('.dropdown-item-link').data('id');
+
+        // Ẩn phần tử có lớp hot-products-container
+        $('.hot-products-container').hide();
+
+        // Kích hoạt sự kiện click cho phần tử category-item và truyền categoryId
+        var $categoryItem = $('.category-menu .category-item').has('a[data-id="' + categoryId + '"]');
+
+        if ($categoryItem.length) {
+            $categoryItem.trigger('click', [categoryId]);
+        }
+    });
+
+    // Sự kiện khi nhấp vào một danh mục
+    $('.category-menu .category-item').click(function(event, categoryId) {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+
+
+        if (!categoryId) {
+            categoryId = $(this).find('.category-link').data('id');
+        }
+        console.log(categoryId);
         // Cập nhật lớp active cho danh mục hiện tại
         $('.category-menu .category-item').removeClass('active');
         $(this).addClass('active');
 
         // Tải sản phẩm cho danh mục đã chọn và trang đầu tiên
-        if (categoryId) {
-            currentPage = 1;
-            loadProducts(categoryId, currentPage);
-        }
+        var currentPage = 1;
+        loadProducts(categoryId, currentPage);
     });
+
 
     // Sự kiện khi nhấp vào các liên kết phân trang
     $(document).on('click', '.pagination .page-link', function(event) {

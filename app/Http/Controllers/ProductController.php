@@ -3,10 +3,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    protected $productService;
+    protected ProductService $productService;
 
     public function __construct(ProductService $productService)
     {
@@ -32,6 +33,20 @@ class ProductController extends Controller
         ]);
     }
 
+    public function handleGetNewProductsByCategoryId($id)
+    {
+        $newProducts = $this->productService->handleGetNewProductsByCategoryId($id);
+        return response()->json($newProducts);
+    }
+
+    public function show($id)
+    {
+        $product = $this->productService->getProductById($id);
+        $variants = $product->variants;
+        $firstVariants = $variants->first();
+        $initialPrice = $firstVariants->price;
+        return view('pages.product_details',compact('product','variants','initialPrice'));
+    }
 
 }
 

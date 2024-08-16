@@ -15,6 +15,7 @@ class ProductRepository extends BaseRepository
     {
         $newProducts = Products::where('category_id',$categoryId)
             ->orderBy('created_at','DESC')
+            ->take(4)
             ->get();
         return $newProducts;
     }

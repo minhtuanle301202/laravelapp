@@ -66,7 +66,7 @@
             </div>
             <div class="cart">
                 <span class="icon">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                    <a href="{{ route('cart.show') }}"><i class="fa-solid fa-cart-shopping"></i></a>
                 </span>
                 <span class="cart-count">0</span>
                 <span class="cart-text">Sản phẩm</span>
