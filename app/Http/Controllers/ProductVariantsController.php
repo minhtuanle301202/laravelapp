@@ -18,6 +18,7 @@ class ProductVariantsController extends Controller
         $color = $request->color;
         $capacity = $request->capacity;
         $variants = $this->productVariantsService->getPrice($productId, $color, $capacity);
+
         return response()->json($variants);
     }
 }

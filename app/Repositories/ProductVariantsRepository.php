@@ -13,9 +13,10 @@ class ProductVariantsRepository extends BaseRepository
     public function getPrice($productId, $color, $capacity)
     {
         $variants = ProductVariants::where('product_id', $productId)
-                                    ->where('color', $color)
-                                    ->where('capacity', $capacity)
-                                    ->first();
+            ->where('color', $color)
+            ->where('capacity', $capacity)
+            ->first();
+
         return $variants;
     }
 }

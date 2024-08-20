@@ -17,21 +17,31 @@ class ProductRepository extends BaseRepository
             ->orderBy('created_at','DESC')
             ->take(4)
             ->get();
+
         return $newProducts;
     }
 
     public function getProductsByCategoryId($categoryId)
     {
         $products = Products::where('category_id',$categoryId)
-            ->get();
+            ->paginate(4);
+
         return $products;
     }
 
     public function getProductsByCategoryIdandPagination($id)
     {
-        $products = Products::where('category_id',$id)->paginate(8);
+        $products = Products::where('category_id',$id)->paginate(4);
 
         return  $products;
+    }
+
+    public function getProductsByCategoryIdInCategoryPage($categoryId)
+    {
+        $products = Products::where('category_id',$categoryId)
+            ->paginate(4);
+
+        return $products;
     }
 }
 ?>

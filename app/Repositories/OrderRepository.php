@@ -8,7 +8,5 @@ class OrderRepository extends BaseRepository
     public function __construct(Orders $order) {
         parent::__construct($order);
     }
-
-
 }
 ?>

@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    function updatePrice(quantity) {
+
+    function updatePrice(quantity,id) {
         var selectedColor = $('.color-button.active').data('color');
         var selectedStorage = $('.storage-button.active').data('storage');
         var productId = $('.product-name').data('product-id');
@@ -28,7 +29,9 @@ $(document).ready(function() {
                 finalPriceInput.val(finalPrice);
                 variantId.val(response.id);
                 variantPrice.val(parseInt(response.price));
-                $('#product-price').text(finalPrice.toLocaleString('vi-VN') + ' VND');
+                if (id === 1) {
+                    $('#product-price').text(finalPrice.toLocaleString('vi-VN') + ' VND');
+                }
             }
         });
     }
@@ -38,7 +41,7 @@ $(document).ready(function() {
         var currentQuantity = parseInt($('.now-quantity').val());
         $('.color-button').removeClass('active');
         $(this).addClass('active');
-        updatePrice(currentQuantity);
+        updatePrice(currentQuantity,1);
     });
 
     // Khi chọn dung lượng
@@ -46,7 +49,7 @@ $(document).ready(function() {
         var currentQuantity = parseInt($('.now-quantity').val());
         $('.storage-button').removeClass('active');
         $(this).addClass('active');
-        updatePrice(currentQuantity);
+        updatePrice(currentQuantity,1);
     });
 
 
@@ -58,7 +61,7 @@ $(document).ready(function() {
         if (currentQuantity > 1) {
             $quantityInput.val(currentQuantity - 1);
             currentQuantity--;
-            updatePrice(currentQuantity);
+            updatePrice(currentQuantity,2);
         }
     });
 
@@ -70,7 +73,7 @@ $(document).ready(function() {
         // Tăng số lượng
         $quantityInput.val(currentQuantity + 1);
         currentQuantity++;
-        updatePrice(currentQuantity);
+        updatePrice(currentQuantity,2);
     });
 
     // Xử lý khi người dùng nhập số lượng
@@ -80,7 +83,7 @@ $(document).ready(function() {
         // Đảm bảo giá trị nhập vào là số và lớn hơn hoặc bằng 1
         if ($.isNumeric(quantity) && quantity >= 1) {
             $(this).val(quantity);
-                updatePrice(quantity);
+                updatePrice(quantity,2);
         } else {
             // Nếu giá trị không hợp lệ, reset về giá trị mặc định
             $(this).val(1);
@@ -108,6 +111,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 $('#cart-alert').text(response.message);
+                // $('.cart-count').text(response.quantity);
             },
             error: function(xhr, status, error) {
                 alert("Error");

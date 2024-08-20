@@ -23,7 +23,7 @@
                             Đăng nhập tài khoản
                         </h1>
 
-                        <form method="post" action="{{ route('login') }}" id="customer_login" accept-charset="UTF-8">
+                        <form method="post" action="{{ route('login.process') }}" id="customer_login" accept-charset="UTF-8">
                             @csrf
                             <fieldset class="form-group">
                                 <label>Email <span class="required">*</span></label>

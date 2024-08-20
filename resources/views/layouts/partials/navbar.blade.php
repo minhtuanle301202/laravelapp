@@ -6,7 +6,7 @@
             <a href="#">Sản Phẩm <span class="dropdown-arrow">&#9662;</span></a>
             <ul class="dropdown-menu">
                 @foreach ($categories as $category)
-                    <li class="dropdown-item"><a href="#">{{ $category->name }}</a></li>
+                    <li class="dropdown-item"><a href="{{ route('category',$category->id) }}">{{ $category->name }}</a></li>
                 @endforeach
             </ul>
         </li>

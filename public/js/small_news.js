@@ -1,56 +1,60 @@
-$(document).ready(function() {
-    var currentPage = 1;
-    var totalPages = 1;
-
-    function loadNews(page) {
-        $.ajax({
-            url: '/news?page=' + page,
-            method: 'GET',
-            success: function(response) {
-                $('#news-sidebar-content').empty(); // Xóa tin tức hiện tại
-
-                // Cập nhật số trang và dữ liệu tin tức
-                totalPages = response.last_page;
-
-                // Thêm tin tức vào danh sách (chỉ có một tin tức trên mỗi trang)
-                if (response.data.length > 0) {
-                    var newsItem = response.data[0];
-                    $('#news-sidebar-content').append(
-                        '<div class="news-item">' +
-                        '<img src="' + newsItem.image + '" alt="Tin tức">' +
-                        '<div class="news-title"><a href="#">' + newsItem.title + '</a></div>' +
-                        '<div class="posted-time">' + moment(newsItem.published_date).format('DD/MM/YYYY') + '</div>' +
-                        '<div class="justify">' +
-                        newsItem.content.substring(0, 150) + (newsItem.content.length > 150 ? '...' : '') +
-                        '</div>' +
-                        '</div>'
-                    );
+$(document).ready(function () {
+    $('#next-sidebar-news').click(function () {
+        let currentPage = $('#page-number').val();
+        let newsId = $('.news-title').data('news-id');
+        console.log(newsId);
+        if (currentPage < 8) {
+            $.ajax({
+                url: '/news/next-small-news',
+                method: 'GET',
+                data: {
+                    newsId: newsId,
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (!response.message) {
+                        currentPage++;
+                        data = `<img  src="${response.image}" alt="Tin tức">
+            <div class="news-title" data-news-id="${response.id}"><a href="#">${response.title}</a></div>
+            <div class="posted-time">${response.published_date}</div>
+            <div class="justify">
+                ${response.content}
+            </div>
+            <input type="hidden" id="page-number" value="${currentPage}">`;
+                        $('#news-sidebar-content').html(data);
+                    }
                 }
+            })
+        }
 
-                // Cập nhật trạng thái của các nút Prev và Next
-                updateNavigationButtons();
-            }
-        });
-    }
+    })
 
-    function updateNavigationButtons() {
-        $('#prev-sidebar-news').prop('disabled', currentPage === 1);
-        $('#next-sidebar-news').prop('disabled', currentPage >= totalPages);
-    }
-
-    $('#prev-sidebar-news').click(function() {
+    $('#prev-sidebar-news').click(function () {
+        let currentPage = $('#page-number').val();
+        let newsId = $('.news-title').data('news-id');
+        console.log(newsId);
         if (currentPage > 1) {
-            currentPage--;
-            loadNews(currentPage);
-        }
-    });
+            $.ajax({
+                url: '/news/prev-small-news',
+                method: 'GET',
+                data: {
+                    newsId: newsId,
+                },
+                success: function(response) {
 
-    $('#next-sidebar-news').click(function() {
-        if (currentPage < totalPages) {
-            currentPage++;
-            loadNews(currentPage);
+                    currentPage--;
+                    data = `<img  src="${response.image}" alt="Tin tức">
+            <div class="news-title" data-news-id="${response.id}"><a href="#">${response.title}</a></div>
+            <div class="posted-time">${response.published_date}</div>
+            <div class="justify">
+                ${response.content}
+            </div>
+            <input type="hidden" id="page-number" value="${currentPage}">`;
+                    $('#news-sidebar-content').html(data);
+                }
+            })
         }
-    });
 
-    loadNews(currentPage);
-});
+    })
+})
+

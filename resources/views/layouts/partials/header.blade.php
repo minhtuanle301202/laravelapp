@@ -65,11 +65,26 @@
                 <span class="loved-text">Yêu thích</span>
             </div>
             <div class="cart">
+                @auth
                 <span class="icon">
                     <a href="{{ route('cart.show') }}"><i class="fa-solid fa-cart-shopping"></i></a>
                 </span>
+{{--                 @if ($cart->isEmpty())--}}
+{{--                <span class="cart-count">0</span>--}}
+{{--                  @else--}}
+{{--                <span class="cart-count">{{ $cart->quantity }}</span>--}}
+{{--                    @endif--}}
                 <span class="cart-count">0</span>
                 <span class="cart-text">Sản phẩm</span>
+                @endauth
+
+                @guest
+                <span class="icon">
+                    <a href="{{ route('login') }}"><i class="fa-solid fa-cart-shopping"></i></a>
+                </span>
+                <span class="cart-count">0</span>
+                <span class="cart-text">Sản phẩm</span>
+                    @endguest
             </div>
         </div>
     </div>

@@ -13,6 +13,7 @@
 }
 .go-home a{
     color: #343a40;
+    text-decoration: none;
 }
 .go-home a:hover {
     color: #77ca64;
@@ -134,6 +135,29 @@
     border: 1px solid #77ca64 !important;
     box-shadow: none;
 }
+.link-to-cart {
+    padding: 10px 30px;
+    background-color: #77ca64;
+    border: 1px solid #77ca64;
+    font-size: 20px;
+    border-radius: 25px;
+}
+
+.link-to-cart a {
+    text-decoration: none;
+    color:white;
+}
+
+.link-to-cart:hover {
+    background-color: white ;
+    border: 1px solid #77ca64 ;
+    box-shadow: none;
+}
+
+.link-to-cart:hover a {
+    color:#77ca64;
+}
+
 .btn-outline-primary {
     border-color: #77ca64;
     color: #77ca64;

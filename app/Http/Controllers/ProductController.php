@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\ProductService;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
+use App\Exceptions\UserException;
 
 class ProductController extends Controller
 {
@@ -14,38 +16,51 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function index()
+    public function handleGetProductsByCategoryId(Request $request)
     {
-        $products = $this->productService->getAllProducts();
-        return view('user.products.index', compact('products'));
-    }
-
-    public function handleGetProductsByCategoryId($id)
-    {
-        $products = $this->productService->getProductsByCategoryId($id);
-
-        return response()->json([
-            'data' => $products->items(),
-            'current_page' => $products->currentPage(),
-            'last_page' => $products->lastPage(),
-            'per_page' => $products->perPage(),
-            'total' => $products->total()
-        ]);
+        $categoryId = $request->category_id;
+        $products = $this->productService->getProductsByCategoryId($categoryId);
+        return view('layouts.partials.list_product',compact('products'))->render();
     }
 
     public function handleGetNewProductsByCategoryId($id)
     {
         $newProducts = $this->productService->handleGetNewProductsByCategoryId($id);
-        return response()->json($newProducts);
+        return view('layouts.partials.list_new_product',compact('newProducts'))->render();
     }
 
     public function show($id)
     {
         $product = $this->productService->getProductById($id);
+
+        if (!$product) {
+            throw new UserException();
+        }
+
         $variants = $product->variants;
         $firstVariants = $variants->first();
         $initialPrice = $firstVariants->price;
+
         return view('pages.product_details',compact('product','variants','initialPrice'));
+    }
+
+    public function getProductsByCategoryIdInCategoryPage($id)
+    {
+        $categoryId = $id;
+        $products = $this->productService->getProductsByCategoryIdInCategoryPage($categoryId);
+
+        if ($products->isEmpty()) {
+            throw new UserException();
+        }
+
+        $category = $products->first()->category;
+
+        if (request()->ajax()) {
+            return view('.layouts.partials.list_product',compact('products'))->render();
+        }
+
+        return view('pages.list_products',compact('category','products'));
+
     }
 
 }

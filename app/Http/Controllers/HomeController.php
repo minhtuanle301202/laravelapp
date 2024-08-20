@@ -22,9 +22,11 @@ class HomeController extends Controller {
         $categories = $this->categoryService->handleGetAllCategories();
         $firstCategory = $categories->first();
         $newProducts = $this->productService->handleGetNewProductsByCategoryId($firstCategory->id);
+        $bigNews = $this->newsService->handleGetBigNewsByCategoryId();
         $products = $this->productService->handleGetProductsByCategoryId($firstCategory->id);
         $news = $this->newsService->handleGetLastestNews();
-        return view('pages.home', compact('categories','newProducts','products','news'));
+
+        return view('pages.home', compact('categories','newProducts','products','news','bigNews'));
     }
 }
 

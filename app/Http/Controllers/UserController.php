@@ -41,7 +41,7 @@ class UserController extends Controller
         $user = $this->userService->loginUser($validatedData);
 
         if ($user) {
-                return redirect()->route('home');
+            return redirect()->route('home');
         } else {
             return redirect()->route('login')->withErrors(['login_error' => 'Tên người dùng hoặc mật khẩu không đúng.']);
         }
@@ -50,7 +50,8 @@ class UserController extends Controller
     public function handleLogout()
     {
        $this->userService->logoutUser();
-        return redirect()->route('home');
+
+       return redirect()->route('home');
     }
 }
 

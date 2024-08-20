@@ -35,6 +35,7 @@ abstract class BaseRepository
             $model->update($data);
             return $model;
         }
+
         return null;
     }
 
@@ -44,6 +45,7 @@ abstract class BaseRepository
         if ($model) {
             return $model->delete();
         }
+
         return false;
     }
 }

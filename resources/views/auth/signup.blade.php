@@ -23,7 +23,7 @@
                             Đăng ký tài khoản
                         </h1>
 
-                        <form method="post" action="{{ route('register') }}" id="customer_register" accept-charset="UTF-8">
+                        <form method="post" action="{{ route('register.process') }}" id="customer_register" accept-charset="UTF-8">
                             @csrf
                             <fieldset class="form-group">
                                 <label>Họ và tên<span class="required">*</span></label>

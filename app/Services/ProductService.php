@@ -32,6 +32,14 @@ class ProductService
     public function getProductById($id)
     {
         $product = $this->productRepository->find($id);
+
+        return $product;
+    }
+
+    public function getProductsByCategoryIdInCategoryPage($categoryId)
+    {
+        $product = $this->productRepository->getProductsByCategoryIdInCategoryPage($categoryId);
+
         return $product;
     }
 }

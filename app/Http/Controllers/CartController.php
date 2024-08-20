@@ -20,10 +20,11 @@ class CartController extends Controller
 
         $user = auth()->user();
         $userId = $user->id;
-
         $cart = $this->cartService->createOrUpdateCart($userId, $request);
+
         if ($cart) {
-            return response()->json(['message' => 'Thêm vào giỏ hàng thành công']);
+            return response()->json(['message' => 'Thêm vào giỏ hàng thành công',
+                'quantity' => $cart->quantity]);
         } else {
             return response()->json(['message' => 'Thêm vào giỏ hàng thất bại']);
         }
@@ -41,7 +42,23 @@ class CartController extends Controller
 
     public function updateCartItemQuantity(Request $request)
     {
-        dd($request);
+        $cart = $this->cartService->updateCartItemQuantity($request);
+
+        return response()->json(['price' => $cart->price]);
+    }
+
+    public function deleteCartItem(Request $request)
+    {
+        $cart = $this->cartService->deleteCartItem($request);
+
+        return response()->json(['price' => $cart->price]);
+    }
+
+    public function deleteAllCartItems() {
+        $cartId = auth()->user()->cart->id;
+        $cart = $this->cartService->deleteAllCartItems($cartId);
+
+        return response()->json(['price' => $cart->price]);
     }
 }
 ?>

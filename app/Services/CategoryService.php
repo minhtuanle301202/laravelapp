@@ -12,6 +12,7 @@ class CategoryService {
     public function handleGetAllCategories()
     {
         $categories = $this->categoryRepository->all();
+
         return $categories;
     }
 }

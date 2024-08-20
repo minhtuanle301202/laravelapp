@@ -14,6 +14,7 @@ class ProductVariantsService
     public function getPrice($productId, $color, $capacity)
     {
         $variants = $this->productVariantsRepository->getPrice($productId, $color, $capacity);
+
         return $variants;
     }
 }

@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="{{ asset('css/partials/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/partials/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/partials/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/partials/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/partials/support.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/partials/banner.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/partials/new_product.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/partials/product.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/partials/pagination.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/partials/small_news.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/partials/big_news.css') }}">
     <title>@yield('title')</title>
 </head>
 <body>

@@ -12,9 +12,51 @@ class NewsRepository extends BaseRepository
 
     public function getLastestNews()
     {
-        $news = News::orderBy('created_at','DESC')
-            ->take(5)
+        $news = News::orderBy('published_date', 'desc')->first();
+        return $news;
+    }
+
+    public function getBigNewsByCategoryId()
+    {
+        $bigNews = News::orderBy('published_date', 'desc')->simplePaginate(4,['*'],'news_page');
+        return $bigNews;
+    }
+
+    public function getNextSmallNews($newsId)
+    {
+        $nextNews = News::where('id', '>', $newsId)->orderBy('published_date', 'desc')->first();
+        return $nextNews;
+    }
+
+    public function getPrevSmallNews($newsId)
+    {
+        $prevNews = News::where('id', '=', $newsId-1)->orderBy('published_date', 'desc')->first();
+        return $prevNews;
+    }
+
+    public function getPrevBigNews($page)
+    {
+        $perPage = 4;
+        $offset = ($page - 2) * $perPage;
+
+        $news = News::orderBy('published_date', 'desc')
+            ->offset($offset)
+            ->limit($perPage)
             ->get();
+
+        return $news;
+    }
+
+    public function getNextBigNews($page)
+    {
+        $perPage = 4;
+        $offset = $page  * $perPage;
+
+        $news = News::orderBy('published_date', 'desc')
+            ->offset($offset)
+            ->limit($perPage)
+            ->get();
+
         return $news;
     }
 }

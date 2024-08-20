@@ -19,5 +19,26 @@ class CartService {
     {
         return $this->cartRepository->getCart($userId);
     }
+
+    public function updateCartItemQuantity($request)
+    {
+        $cart = $this->cartRepository->updateCartItemQuantity($request);
+
+        return $cart;
+    }
+
+    public function deleteCartItem($request)
+    {
+        $cart = $this->cartRepository->deleteCartItem($request);
+
+        return $cart;
+    }
+
+    public function deleteAllCartItems($cartId)
+    {
+        $cart = $this->cartRepository->deleteAllCartItems($cartId);
+
+        return $cart;
+    }
 }
 ?>

@@ -27,12 +27,14 @@ class UserService {
         if (Auth::attempt(['email'=> $validatedData['email'],'password' => $validatedData['password']])) {
             return Auth::user();
         }
+
         return null;
     }
 
     public function logoutUser()
     {
         Auth::logout();
+
         return true;
     }
 }

@@ -69,6 +69,7 @@
                         <input type="hidden" name="final_price" id="final-price">
                         <button type="submit" class="add-to-cart btn btn-primary">Thêm vào giỏ hàng</button>
                     </form>
+                    <button class="link-to-cart"><a href="{{ route('cart.show') }}">Đến giỏ hàng</a></button>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-primary add-to-cart">Đăng nhập để thêm vào giỏ hàng</a>
                 @endauth
