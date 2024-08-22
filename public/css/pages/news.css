@@ -1,0 +1,122 @@
+.link .container {
+    padding: 0px;
+}
+.news-link {
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    color: #77ca64;
+}
+.breadcrumb {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    background-color: transparent;
+    width: 100%;
+    display: block;
+    margin: 0;
+    font-size: 14px;
+    padding: 15px 0;
+    border-radius: 0;
+}
+
+.breadcrumb .home{
+    color:#555;
+}
+.breadcrumb .news-link,.home {
+    text-decoration: none;
+}
+
+.breadcrumb .news-link {
+    color: #77CA64;
+}
+
+.breadcrumb .home:hover {
+    color:#77CA64;
+    cursor: pointer;
+}
+.news-list-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+.line {
+    height: 2px;
+    background-color: #77ca64;
+    margin: 20px 0;
+}
+.news-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.news-item > * {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.news-item > img {
+    width: 100%;
+}
+.news-title > a{
+    color: #555;
+}
+.news-title > a:hover {
+    color: #77ca64;
+    text-decoration: none;
+}
+.news-item > .justify {
+    font-size: 12px;
+}
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.page-item.active .page-link {
+    background-color: #77ca64;
+    border-color: #77ca64;
+    color: white;
+}
+.page-item .page-link {
+    color: #77ca64;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+.page-item .page-link:hover {
+    color: white;
+    background-color: #77ca64;
+    border-color: #77ca64;
+}
+
+.pagination-news {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-news button {
+    border: 1px solid #bcbcbc;
+    background-color: white;
+    padding: 8px 12px;
+    color: #1a202c;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.pagination-news .prev-news {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.pagination-news .next-news {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.pagination-news button:hover {
+    background-color: #77ca64;
+    color: white;
+}
+
+.news-container {
+    margin-bottom: 60px;
+}
+

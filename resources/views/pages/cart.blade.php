@@ -1,7 +1,7 @@
 @extends('layouts.users.master')
 @section('title','Cart')
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/pages/cart.css') }}">
+
     <div class="col-12 link">
             <div class="breadcrumb">
                 <a class="home" href="{{ route('home') }}">Trang chủ</a>
@@ -50,11 +50,11 @@
                 </div>
                 <div class="total-price">
                     <div class="title">Tổng tiền thanh toán:</div>
-                    <div class="text-price">{{ number_format($cart->price, 0, ',', '.') }} VND</div>
+                    <div class="text-price" data-cart-price="{{ $cart->price }}">{{ number_format($cart->price, 0, ',', '.') }} VND</div>
                 </div>
                 <div class="cart-button">
                     <button class="remove-all btn btn-primary">Xóa tất cả</button>
-                    <button class="pay btn btn-primary">Thanh toán</button>
+                    <button class="pay btn btn-primary"><a href="{{ route('cart.payment') }}">Thanh toán</a></button>
                 </div>
             @else
                 <div class="cart-empty-message">

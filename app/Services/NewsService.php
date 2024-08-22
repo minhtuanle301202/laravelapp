@@ -52,5 +52,32 @@ class NewsService
 
         return $news;
     }
+
+    public function show()
+    {
+        $news = $this->newsRepository->show();
+        return $news;
+    }
+
+    public function getPrevNews($page)
+    {
+        $news = $this->newsRepository->getPrevNews($page);
+
+        return $news;
+    }
+
+    public function getNextNews($page)
+    {
+        $news = $this->newsRepository->getNextNews($page);
+
+        return $news;
+    }
+
+    public function getNewsDetails($id)
+    {
+        $news = $this->newsRepository->find($id);
+
+        return $news;
+    }
 }
 ?>

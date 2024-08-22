@@ -21,4 +21,5 @@
     <div class="footer-content">
         @include('layouts.partials.big_news')
     </div>
+
 @endsection

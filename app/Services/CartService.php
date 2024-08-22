@@ -2,6 +2,7 @@
 namespace App\Services;
 use App\Repositories\CartRepository;
 
+
 class CartService {
     protected CartRepository $cartRepository;
 
@@ -39,6 +40,12 @@ class CartService {
         $cart = $this->cartRepository->deleteAllCartItems($cartId);
 
         return $cart;
+    }
+
+    public function placeAnOrder($request)
+    {
+        $order = $this->cartRepository->placeAnOrder($request);
+        return $order;
     }
 }
 ?>

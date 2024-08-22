@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductVariantsController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,10 @@ Route::prefix('news')->group(function() {
     Route::get('next-small-news',[NewsController::class,'handleGetNextSmallNews'])->name('news.next-small-news');
     Route::get('prev-big-news',[NewsController::class,'handleGetPreviousBigNews'])->name('news.prev-big-news');
     Route::get('next-big-news',[NewsController::class,'handleGetNextBigNews'])->name('news.next-big-news');
+    Route::get('',[NewsController::class,'show'])->name('news.show');
+    Route::get('prev-news',[NewsController::class,'handleGetPreviousNews'])->name('news.prev-news');
+    Route::get('next-news',[NewsController::class,'handleGetNextNews'])->name('news.next-news');
+    Route::get('news-details/{id}',[NewsController::class,'showNewsDetails'])->name('news.news-details');
 });
 
 
@@ -55,5 +60,21 @@ Route::prefix('user')->middleware(['auth'])->group( function() {
         Route::delete('delete-all', [CartController::class, 'deleteAllCartItems'])->name('cart.deleteAll');
         Route::get('check', [CartController::class, 'checkCart'])->name('cart.check');
         Route::get('count', [CartController::class, 'getCartItemCount'])->name('cart.count');
+        Route::get('payment',[CartController::class, 'showPayMentPage'])->name('cart.payment');
+        Route::post('place-an-order',[CartController::class, 'placeAnOrder'])->name('cart.placeAnOrder');
+    });
+});
+
+Route::get('admin/login',[AdminController::class,'showLoginForm'])->name('admin.login');
+Route::post('admin/login-process',[AdminController::class,'handleLoginAdmin'])->name('admin.login.process');
+
+Route::prefix('admin')->middleware(['auth:admin'])->group( function() {
+    Route::prefix('manage')->group(function() {
+        Route::prefix('users')->group(function() {
+            Route::get('',[AdminController::class,'showManageUsersPage'])->name('admin.manage.users');
+            Route::get('show/{id}',[AdminController::class,'showUserDetails'])->name('admin.manage.users.show');
+            Route::post('update/{id}',[AdminController::class,'updateUserDetails'])->name('admin.manage.users.update');
+            Route::delete('delete/{id}',[AdminController::class,'deleteUser'])->name('admin.manage.users.delete');
+        });
     });
 });

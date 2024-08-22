@@ -59,5 +59,37 @@ class NewsRepository extends BaseRepository
 
         return $news;
     }
+
+    public function show()
+    {
+        $news = News::take(8)->get();
+        return $news;
+    }
+
+    public function getPrevNews($page)
+    {
+        $perPage = 8;
+        $offset = ($page - 2) * $perPage;
+
+        $news = News::orderBy('id', 'asc')
+            ->offset($offset)
+            ->limit($perPage)
+            ->get();
+
+        return $news;
+    }
+
+    public function getNextNews($page)
+    {
+        $perPage = 8;
+        $offset = $page  * $perPage;
+
+        $news = News::orderBy('id', 'desc')
+            ->offset($offset)
+            ->limit($perPage)
+            ->get();
+
+        return $news;
+    }
 }
 ?>
