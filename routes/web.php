@@ -67,14 +67,30 @@ Route::prefix('user')->middleware(['auth'])->group( function() {
 
 Route::get('admin/login',[AdminController::class,'showLoginForm'])->name('admin.login');
 Route::post('admin/login-process',[AdminController::class,'handleLoginAdmin'])->name('admin.login.process');
+Route::post('admin/logout',[AdminController::class,'handleLogoutAdmin'])->name('admin.logout');
 
 Route::prefix('admin')->middleware(['auth:admin'])->group( function() {
     Route::prefix('manage')->group(function() {
         Route::prefix('users')->group(function() {
             Route::get('',[AdminController::class,'showManageUsersPage'])->name('admin.manage.users');
-            Route::get('show/{id}',[AdminController::class,'showUserDetails'])->name('admin.manage.users.show');
-            Route::post('update/{id}',[AdminController::class,'updateUserDetails'])->name('admin.manage.users.update');
-            Route::delete('delete/{id}',[AdminController::class,'deleteUser'])->name('admin.manage.users.delete');
+            Route::get('prev-users',[AdminController::class,'handleGetPreviousUsers'])->name('admin.manage.users.prev');
+            Route::get('next-users',[AdminController::class,'handleGetNextUsers'])->name('admin.manage.users.next');
+            Route::post('create',[AdminController::class,'handleCreateUser'])->name('admin.manage.users.create');
+            Route::get('get-info',[AdminController::class,'showUserDetails'])->name('admin.manage.users.get-info');
+            Route::post('update',[AdminController::class,'updateUserDetails'])->name('admin.manage.users.update');
+            Route::delete('delete',[AdminController::class,'deleteUser'])->name('admin.manage.users.delete');
+        });
+
+        Route::prefix('news')->group(function() {
+            Route::get('',[AdminController::class,'showManageNewsPage'])->name('admin.manage.news');
+            Route::get('prev-news',[AdminController::class,'handleGetPreviousNews'])->name('admin.manage.news.prev');
+            Route::get('next-news',[AdminController::class,'handleGetNextNews'])->name('admin.manage.news.next');
+            Route::post('create',[AdminController::class,'handleCreateNews'])->name('admin.manage.news.create');
+            Route::get('get-info',[AdminController::class,'showNewsDetails'])->name('admin.manage.news.get-info');
+            Route::post('update',[AdminController::class,'updateNewsDetails'])->name('admin.manage.news.update');
+            Route::delete('delete',[AdminController::class,'deleteNews'])->name('admin.manage.news.delete');
         });
     });
 });
+
+

@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 50px !important;
 }
 .group-login {
     background: #fff;
@@ -55,7 +55,6 @@ input::placeholder {
     font-size: 13px;
 }
 
-
 .btn-login {
     width: 100%;
     height: 40px;
@@ -78,4 +77,12 @@ input::placeholder {
     background-color: white;
     border: 2px solid #77CA64;
     color:#77CA64;
+}
+
+.error {
+    margin: 20px 5px 5px 5px;
+}
+
+.error span {
+    color:red;
 }

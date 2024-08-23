@@ -6,6 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .admin-header h1 {
@@ -21,6 +22,9 @@
 }
 
 #logout-form .btn-danger {
+    position: absolute;
+    right:5px;
+    top:5px;
     background-color: #dc3545;
     border-color: #dc3545;
 }

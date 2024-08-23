@@ -13,7 +13,7 @@
             <a href="#">Thống kê và báo cáo</a>
         </li>
         <li class="manage-news-item {{ request()->is('admin/manage/news*') ? 'active' : '' }}">
-            <a href="#">Quản lý tin tức</a>
+            <a href="{{ route('admin.manage.news') }}">Quản lý tin tức</a>
         </li>
     </ul>
 </div>

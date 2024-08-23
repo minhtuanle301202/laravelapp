@@ -13,17 +13,32 @@
     justify-content: center;
     gap: 5px;
 }
-.btn-add-user {
-    margin-bottom: 20px;
+
+.btn-add-news {
+    background-color: #07acff;
+    color: white;
+    border:none;
+    border-radius: 5px;
+    padding: 8px 10px ;
+    transition: all 0.3s ease;
+}
+
+.btn-add-news:hover {
+    background-color: #016fb5;
+    color: #ffffff;
 }
 
 .pagination-news {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    position: absolute;
+    top:580px;
+    left:450px;
+
 }
 
-.pagination-users button {
+.pagination-news button {
     border: 1px solid #bcbcbc;
     background-color: white;
     padding: 8px 12px;
@@ -32,18 +47,30 @@
     transition: all 0.3s ease;
 }
 
-.pagination-users .prev-users {
+.pagination-news .prev-news {
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;
 }
 
-.pagination-users .next-users {
+.pagination-news .next-news {
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
 }
 
-.pagination-users button:hover {
-    background-color: #77ca64;
+.pagination-news button:hover {
+    background-color: #07acff;
     color: white;
 }
 
+.top-content {
+    margin-bottom: 20px !important;
+}
+
+.top-content h2 {
+    text-transform: uppercase;
+    font-size:20px;
+}
+
+.main-content {
+    margin-top: 30px !important;
+}

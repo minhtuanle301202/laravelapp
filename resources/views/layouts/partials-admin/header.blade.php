@@ -14,7 +14,7 @@
             Trang Quản Trị
         @endif
     </h1>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-danger">Đăng Xuất</button>
     </form>

@@ -17,6 +17,11 @@
                     <input type="password" class="form-control form-control-lg" value="" name="password" id="password" placeholder="Mật khẩu" required="">
                 </fieldset>
                 <button class="btn-login" type="submit" value="Đăng nhập">Đăng nhập</button>
+                @if ($errors->any())
+                    <div class="error">
+                        <span>{{ $errors->first() }}</span>
+                    </div>
+                @endif
             </form>
         </div>
     </div>

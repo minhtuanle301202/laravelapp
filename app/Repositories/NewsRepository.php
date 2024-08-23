@@ -91,5 +91,6 @@ class NewsRepository extends BaseRepository
 
         return $news;
     }
+
 }
 ?>
