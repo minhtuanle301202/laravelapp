@@ -1,0 +1,83 @@
+.news-sidebar {
+    width: 250px;
+    margin-top: 30px;
+}
+.header-news-sidebar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.middle-news-sidebar > * {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.middle-news-sidebar > img {
+    width: 100%;
+}
+.news-title > a{
+    color: #555;
+}
+.news-title > a:hover {
+    color: #77ca64;
+    text-decoration: none;
+}
+.middle-news-sidebar > .justify {
+    font-size: 12px;
+}
+
+#prev-sidebar-news {
+    padding:0 !important;
+    display: inline-block;
+}
+
+#next-sidebar-news {
+    padding: 0 !important;
+    display: inline-block;
+}
+
+.right-header-news-sidebar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.right-header-news-sidebar button{
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    width: 24px;
+    border: 1px solid #d1d1d1;
+    background-color: #f4f4f4;
+    transition: all 0.3s ease;
+}
+
+.right-header-news-sidebar button img {
+    width: 20px ;
+
+}
+
+.right-header-news-sidebar button:active {
+    background-color: #77ca64;
+}
+
+.right-header-news-sidebar button:focus,
+.right-header-news-sidebar button:hover {
+    background-color: #77ca64;
+    outline: none;
+}
+.line {
+    background-color: #77ca64;
+    height: 2px;
+}
+
+
+
+@media (max-width: 992px) {
+    .news-sidebar {
+        width: 100%;
+    }
+    .middle-news-sidebar > img {
+        width: 350px;
+    }
+}

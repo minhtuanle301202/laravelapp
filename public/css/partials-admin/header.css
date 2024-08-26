@@ -1,0 +1,108 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Toàn bộ trang */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* Header chính */
+.main-header {
+    width: 100%;
+    background-color: #e6bc29;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom:10px;
+}
+
+.header-left h1 {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right i {
+    font-size: 24px;
+    margin-right: 15px;
+    color: #ffffff;
+}
+
+.header-right .btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.header-right .btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Admin Container */
+.admin-container {
+    display: flex;
+    height: calc(100vh - 70px); /* Chiều cao toàn bộ trừ đi header */
+    border-top: 1px solid #29bdf6;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 330px;
+    background-color: #ffffff;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 20px;
+}
+
+.sidebar-menu li a {
+    color: #5a5a5a;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 20px 20px;
+    border-radius: 18px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-menu li a.active,
+.sidebar-menu li a:hover {
+    background-color: #cb58ff;
+    color:white;
+    transform: translateX(5px);
+    font-weight: 600;
+}
+
+
+
+
