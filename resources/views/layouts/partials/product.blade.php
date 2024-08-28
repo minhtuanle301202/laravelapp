@@ -9,7 +9,7 @@
         </ul>
     </div>
     <div class="middle-products" id="products-list">
-        @include('layouts.partials.list_product', ['$category' => $category])
+        @include('layouts.partials.list_product', ['products' => $products])
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

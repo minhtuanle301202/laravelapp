@@ -37,5 +37,15 @@ class Users extends Authenticatable
     {
         return $this->hasOne(Carts::class,'user_id');
     }
+
+    public function order()
+    {
+        return $this->hasOne(Orders::class,'user_id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->orderBy('id','desc');
+    }
 }
 

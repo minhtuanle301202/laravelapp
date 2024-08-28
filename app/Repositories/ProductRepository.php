@@ -2,7 +2,6 @@
 namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use App\Models\Products;
-use App\Models\Categories;
 
 
 class ProductRepository extends BaseRepository
@@ -21,7 +20,6 @@ class ProductRepository extends BaseRepository
             ->with('variants')
             ->get();
 
-
         return $newProducts;
     }
 
@@ -35,8 +33,7 @@ class ProductRepository extends BaseRepository
 
     public function getProductsByCategoryIdandPagination($id)
     {
-        $products = Products::where('category_id',$id)
-            ->paginate(self::NUMBER_PRODUCT_PER_PAGE);
+        $products = Products::where('category_id',$id)->paginate(self::NUMBER_PRODUCT_PER_PAGE);
 
         return  $products;
     }
@@ -46,6 +43,45 @@ class ProductRepository extends BaseRepository
         $products = Products::where('category_id',$categoryId)
             ->with('variants')
             ->paginate(self::NUMBER_PRODUCT_PER_PAGE);
+
+        return $products;
+    }
+
+    public function getAllProducts($perPage)
+    {
+        $products = Products::orderBy('id','desc')
+                    ->take($perPage)
+                    ->get();
+        return $products;
+    }
+
+    public function getProductsInPagination($perPage,$offset)
+    {
+        $products = Products::orderBy('id','desc')
+            ->offset($offset)
+            ->limit($perPage)
+            ->get();
+
+        return $products;
+    }
+
+    public function getProductsByCategoryIdInPagination($perPage,$offset,$categoryId)
+    {
+        $products = Products::where('category_id',$categoryId)
+            ->orderBy('id','desc')
+            ->offset($offset)
+            ->limit($perPage)
+            ->get();
+
+        return $products;
+    }
+
+    public function searchProduct($productName, $offset)
+    {
+        $products = Products::where('name', 'LIKE', "%$productName%")
+            ->offset($offset)
+            ->limit(1)
+            ->get();
 
         return $products;
     }

@@ -3,6 +3,8 @@ namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use App\Models\Carts;
 use App\Models\CartItems;
+use App\Models\Orders;
+use App\Models\OrderDetails;
 
 class CartRepository extends BaseRepository
 {
@@ -47,7 +49,11 @@ class CartRepository extends BaseRepository
 
     public function getCart($userId)
     {
-        $cart = Carts::where('user_id', $userId)->first();
+        $cart = Carts::firstOrCreate(
+            ['user_id' => $userId],
+            ['price' => 0, 'quantity' => 0]
+        );
+
         return $cart;
     }
 
@@ -58,7 +64,6 @@ class CartRepository extends BaseRepository
             'price' => $request->finalPrice,
             'quantity' => $request->quantity,
         ]);
-
         $cart = $cartItem->cart ;
         $this->updateCart($cart);
         return $cart;
@@ -79,6 +84,57 @@ class CartRepository extends BaseRepository
         $cart = Carts::find($cartId);
         $this->updateCart($cart);
         return $cart;
+    }
+
+    public function placeAnOrder($request)
+    {
+        $user = auth()->user();
+        $userId = $user->id;
+        $cart = $user->cart;
+
+        if ($cart->cartItems->isEmpty())
+        {
+            return redirect()->route('cart.show')->with('Giỏ hảng của bạn trống');
+        }
+
+        $order = Orders::create([
+           'user_id' => $userId,
+            'order_date' => NOW(),
+            'status' => 'pending',
+            'total_price' => $cart->price,
+            'address' => $request->address,
+            'payment_method' => $request->payment_method,
+            'username' => $request->name,
+            'phone' => $request->phone_number,
+        ]);
+
+        $listOrderDetails = [];
+
+        foreach ($cart->cartItems as $cartItem)
+        {
+            $listOrderDetails[] = [
+                'order_id' => $order->id,
+                'product_variants_id' => $cartItem->variants_product_id,
+                'quantity' => $cartItem->quantity,
+                'price' => $cartItem->price,
+                'product_id' => $cartItem->productVariant->product_id,
+                ];
+        }
+
+        foreach($listOrderDetails as $orderDetails)
+        {
+            OrderDetails::insert([
+                'order_id' => $orderDetails['order_id'],
+                'product_variants_id' => $orderDetails['product_variants_id'],
+                'quantity' => $orderDetails['quantity'],
+                'price' => $orderDetails['price'],
+                'product_id' => $orderDetails['product_id'],
+            ]);
+        }
+
+        $cart->delete();
+
+        return true;
     }
 }
 

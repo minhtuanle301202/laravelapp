@@ -9,8 +9,13 @@
     <div class="container">
         <h1>Oops! Something went wrong.</h1>
         <p>We're sorry, but something went wrong on our end. Please try again later.</p>
-        <a href="{{ route('home') }}">Return to Homepage</a>
+        <button onclick="goBack()">Return to Previous Page</button>
     </div>
 </body>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </html>
 

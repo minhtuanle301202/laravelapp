@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Services\NewsService;
 use App\Models\News;
 use Illuminate\Http\Request;
+use App\Exceptions\UserException;
 
 class NewsController extends Controller {
     protected NewsService $newsService;
@@ -35,7 +36,7 @@ class NewsController extends Controller {
     public function handleGetPreviousBigNews(Request $request)
     {
         $page = $request->page;
-        $news = $this->newsService->getPrevBigNews($page);
+        $news = $this->newsService->getPrevNews($page,4);
 
         return response()->json($news);
     }
@@ -43,9 +44,44 @@ class NewsController extends Controller {
     public function handleGetNextBigNews(Request $request)
     {
         $page = $request->page;
-        $news = $this->newsService->getNextBigNews($page);
+        $news = $this->newsService->getNextNews($page,4);
 
         return response()->json($news);
+    }
+
+    public function show()
+    {
+        $news = $this->newsService->show();
+
+        return view('pages.news', compact('news'));
+    }
+
+    public function handleGetPreviousNews(Request $request)
+    {
+            $page = $request->page;
+            $news = $this->newsService->getPrevNews($page,8);
+
+            return response()->json($news);
+    }
+
+    public function handleGetNextNews(Request $request)
+    {
+        $page = $request->page;
+        $news = $this->newsService->getNextNews($page,8);
+
+        if ($news->isEmpty())
+        {
+            return response()->json(['message' => 'Không tồn tại tin tức']);
+        } else {
+            return response()->json($news);
+        }
+    }
+
+    public function showNewsDetails($id)
+    {
+        $news = $this->newsService->getNewsDetails($id);
+
+        return view('pages.news_details', compact('news'));
     }
 
 }

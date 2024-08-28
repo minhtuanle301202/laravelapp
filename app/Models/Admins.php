@@ -4,11 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admins extends Model
+class Admins extends Authenticatable
 {
     use HasFactory;
-    protected $fillable = ['name', 'email', 'password'];
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role',
+        ];
     protected $table = 'admins';
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 }

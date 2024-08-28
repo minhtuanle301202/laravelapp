@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class News extends Model
 {
     use HasFactory;
@@ -18,7 +17,8 @@ class News extends Model
         ];
     protected $table = 'news';
 
-    public function scopeOrder($query) {
+    public function scopeActiveOrder($query)
+    {
         return $query->orderBy('published_date', 'desc');
     }
 }

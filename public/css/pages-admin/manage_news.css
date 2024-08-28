@@ -1,0 +1,76 @@
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+.btn-action {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+.option {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-add-news {
+    background-color: #07acff;
+    color: white;
+    border:none;
+    border-radius: 5px;
+    padding: 8px 10px ;
+    transition: all 0.3s ease;
+}
+
+.btn-add-news:hover {
+    background-color: #016fb5;
+    color: #ffffff;
+}
+
+.pagination-news {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    top:580px;
+    left:450px;
+
+}
+
+.pagination-news button {
+    border: 1px solid #bcbcbc;
+    background-color: white;
+    padding: 8px 12px;
+    color: #1a202c;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.pagination-news .prev-news {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.pagination-news .next-news {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.pagination-news button:hover {
+    background-color: #07acff;
+    color: white;
+}
+
+.top-content {
+    margin-bottom: 20px !important;
+}
+
+.top-content h2 {
+    text-transform: uppercase;
+    font-size:20px;
+}
+
+.main-content {
+    margin-top: 30px !important;
+}

@@ -1,0 +1,116 @@
+
+.breadcrumb {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    background-color: transparent;
+    width: 100%;
+    display: block;
+    margin: 0;
+    font-size: 14px;
+    padding: 15px 0;
+    border-radius: 0;
+}
+
+.breadcrumb .home{
+    color:#555;
+}
+.breadcrumb .cart-link,.home {
+    text-decoration: none;
+}
+
+.breadcrumb .cart-link {
+    color: #77CA64;
+}
+
+.breadcrumb .home:hover {
+    color:#77CA64;
+    cursor: pointer;
+}
+
+.payment-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.order-info > .title {
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+}
+.order-info {
+    margin-top: 30px;
+    width: 50%;
+}
+.order-info form {
+    width: 100%;
+}
+
+.form-group label {
+    margin-top:8px ;
+    margin-bottom: 8px;
+}
+.button-form {
+    display: flex;
+    justify-content: space-between;
+    margin-top:15px;
+}
+
+.btn-order {
+    background-color: #77ca64;
+    border: 1px solid #77ca64;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.btn-back-to-home {
+    background-color: #343a40;
+    border: 1px solid #141414;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.group_alert {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-back-to-home a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-back-to-home:active,
+.btn-back-to-home:focus,
+.btn-back-to-home:hover {
+    background-color: #141414 !important;
+    border: 1px solid #141414 !important;
+    box-shadow: none !important;
+}
+.btn-order:active,
+.btn-order:focus,
+.btn-order:hover {
+    background-color: white !important;
+    border: 1px solid #77ca64 !important;
+    color: #77ca64 !important;
+    box-shadow: none !important;
+}
+.form-group span {
+    color: red;
+}
+@media (max-width: 992px) {
+    .content-container {
+        margin: 0 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-container {
+        margin: 0 10px;
+    }
+    .order-info form {
+        width: 400px;
+    }
+}

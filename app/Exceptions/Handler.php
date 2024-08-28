@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
+use ErrorException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Spatie\LaravelIgnition\Exceptions\ViewException;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+use Illuminate\Http\Request;
 
 class Handler extends ExceptionHandler
 {
@@ -23,8 +27,14 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (Throwable $e, Request $request) {
+            if ($e instanceof ViewException) {
+                return response()->view('errors.500', [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+
+            if ($e instanceof ErrorException) {
+                return response()->view('errors.500', [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
         });
     }
 }

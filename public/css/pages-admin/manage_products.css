@@ -1,0 +1,170 @@
+.table thead th {
+    vertical-align: middle;
+    text-align: center;
+}
+.table tbody td {
+    vertical-align: middle;
+    text-align: center;
+}
+.btn-search {
+    margin-top: 30px;
+}
+
+.btn-action {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+.option {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+td > .img-fluid {
+    max-width: 100px;
+}
+.top-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.go-home a{
+    color: #343a40;
+}
+.go-home a:hover {
+    color: #77ca64;
+    text-decoration: none;
+}
+.go-home p {
+    color: #77ca64;
+    display: inline-block;
+}
+
+.btn-add-product {
+    background-color: #07acff;
+    color: white;
+    border:none;
+    border-radius: 5px;
+    padding: 8px 10px ;
+    transition: all 0.3s ease;
+}
+
+.btn-add-product:hover {
+    background-color: #016fb5;
+    color: #ffffff;
+}
+
+.pagination-products {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    top:750px;
+    left:25px;
+}
+
+.pagination-products button {
+    border: 1px solid #bcbcbc;
+    background-color: white;
+    padding: 8px 12px;
+    color: #1a202c;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.pagination-products .prev-products {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.pagination-products .next-products {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.pagination-products button:hover {
+    background-color: #07acff;
+    color: white;
+}
+
+#productType {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    background-image: url('https://www.svgrepo.com/show/173673/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 10px;
+}
+
+/* CSS cho focus (khi người dùng nhấp vào ô select) */
+#productType:focus {
+    border-color: #66afe9; /* Đổi màu viền khi được focus */
+    outline: none; /* Xóa đường viền mặc định của trình duyệt */
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.6); /* Thêm hiệu ứng shadow */
+}
+
+#productName::placeholder {
+    font-size:16px;
+}
+
+.pagination-variants {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    top:650px;
+    left:25px;
+}
+
+.pagination-variants button {
+    border: 1px solid #bcbcbc;
+    background-color: white;
+    padding: 8px 12px;
+    color: #1a202c;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.pagination-variants .prev-variants {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.pagination-variants .next-variants {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.pagination-variants button:hover {
+    background-color: #07acff;
+    color: white;
+}
+
+.btn-add-variant {
+    background-color: #07acff;
+    color: white;
+    border:none;
+    border-radius: 5px;
+    padding: 8px 10px ;
+    transition: all 0.3s ease;
+}
+
+.btn-add-variant:hover {
+    background-color: #016fb5;
+    color: #ffffff;
+}
+
+body {
+    padding:0 !important;
+    margin:0 !important;
+}

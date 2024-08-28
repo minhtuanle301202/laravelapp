@@ -34,7 +34,11 @@ class CartController extends Controller
     public function show()
     {
         $cart = $this->cartService->getCart(Auth::user()->id);
-        $cart->load('cartItems.productVariant');
+        if ($cart) {
+            $cart->load('cartItems.productVariant');
+        } else {
+            $cart = null;
+        }
 
         return view('pages.cart', compact('cart'));
     }
@@ -53,11 +57,25 @@ class CartController extends Controller
         return response()->json(['price' => $cart->price]);
     }
 
-    public function deleteAllCartItems() {
+    public function deleteAllCartItems()
+    {
         $cartId = auth()->user()->cart->id;
         $cart = $this->cartService->deleteAllCartItems($cartId);
 
         return response()->json(['price' => $cart->price]);
+    }
+
+    public function showPayMentPage()
+    {
+        $user = auth()->user();
+        $cart = $user->cart;
+        return view('pages.payment',compact('cart', 'user'));
+    }
+
+    public function placeAnOrder(Request $request)
+    {
+        $order = $this->cartService->placeAnOrder($request);
+        return response()->json(['message' => 'Đặt hàng thành công']);
     }
 }
 ?>

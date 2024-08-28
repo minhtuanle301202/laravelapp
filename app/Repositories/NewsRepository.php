@@ -3,7 +3,6 @@ namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use App\Models\News;
 
-
 class NewsRepository extends BaseRepository
 {
     public function __construct(News $news)
@@ -13,34 +12,37 @@ class NewsRepository extends BaseRepository
 
     public function getLastestNews()
     {
-        $news = News::order()->first();
+        $news = News::activeOrder()->first();
         return $news;
     }
 
     public function getBigNewsByCategoryId()
     {
-        $bigNews = News::order()->simplePaginate(4,['*'],'news_page');
+        $bigNews = News::activeOrder()->simplePaginate(4,['*'],'news_page');
         return $bigNews;
     }
 
     public function getNextSmallNews($newsId)
     {
-        $nextNews = News::where('id', '>', $newsId)->order()->first();
+        $nextNews = News::where('id', '>', $newsId)->activeOrder()->first();
         return $nextNews;
     }
 
     public function getPrevSmallNews($newsId)
     {
-        $prevNews = News::where('id', '=', $newsId-1)->order()->first();
+        $prevNews = News::where('id', '=', $newsId-1)->activeOrder()->first();
         return $prevNews;
     }
 
-    public function getPrevBigNews($page)
+    public function show()
     {
-        $perPage = 4;
-        $offset = ($page - 2) * $perPage;
+        $news = News::activeOrder()->take(8)->get();
+        return $news;
+    }
 
-        $news = News::order()
+    public function getNewsInPagination($offset,$perPage)
+    {
+        $news = News::activeOrder()
             ->offset($offset)
             ->limit($perPage)
             ->get();
@@ -48,17 +50,11 @@ class NewsRepository extends BaseRepository
         return $news;
     }
 
-    public function getNextBigNews($page)
+    public function getAllNews($perPage)
     {
-        $perPage = 4;
-        $offset = $page  * $perPage;
-
-        $news = News::order()
-            ->offset($offset)
-            ->limit($perPage)
-            ->get();
-
+        $news = News::activeOrder()->take($perPage)->get();
         return $news;
     }
+
 }
 ?>

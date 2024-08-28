@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UserRegisterRequest extends FormRequest
 {
@@ -15,10 +16,11 @@ class UserRegisterRequest extends FormRequest
     }
 
 
-    public function rules()
+    public function rules(Request $request)
     {
+        $userId = $request->input('userId');
         return [
-            'username' => 'required|string|min:3|max:50|unique:users',
+            'username' => 'required|string|min:3|max:50|unique:users,username',
             'password' => 'required|string|min:6',
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|regex:/^[0-9]{10,15}$/', // Hoặc quy tắc khác tùy thuộc vào định dạng số điện thoại
