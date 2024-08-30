@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminProductVariantsController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -115,6 +116,16 @@ Route::prefix('admin')->middleware(['auth:admin'])->group( function() {
                 Route::delete('delete',[AdminProductVariantsController::class, 'deleteVariant'])->name('admin.manage.product_variants.delete');
             });
 
+        });
+
+        Route::prefix('orders')->group(function() {
+                Route::get('',[AdminOrderController::class,'showManageOrdersPage'])->name('admin.manage.orders');
+                Route::get('prev-orders',[AdminOrderController::class,'handleGetPreviousOrders'])->name('admin.manage.orders.prev');
+                Route::get('next-orders',[AdminOrderController::class,'handleGetNextOrders'])->name('admin.manage.orders.next');
+                Route::get('search',[AdminOrderController::class,'handleSearchOrders'])->name('admin.manage.orders.search');
+                Route::get('get-info',[AdminOrderController::class,'handleGetOrderInfo'])->name('admin.manage.orders.get-info');
+                Route::post('update',[AdminOrderController::class,'handleUpdateOrder'])->name('admin.manage.orders.update');
+                Route::get('show-order-details/{id}',[AdminOrderController::class,'handleShowOrderDetail'])->name('admin.manage.orders.show-order-details');
         });
     });
 });

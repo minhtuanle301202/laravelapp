@@ -82,12 +82,10 @@ class ProductService
         return $products;
     }
 
-    public function searchProduct($page,$productName)
+    public function searchProduct($productName)
     {
-        $offset = $page * 1;
-        $products = $this->productRepository->searchProduct($productName, $offset);
+        return $this->productRepository->searchProduct($productName);
 
-        return $products;
     }
 
     public function updateProductDetails($id,$data)

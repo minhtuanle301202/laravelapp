@@ -74,8 +74,15 @@ class CartController extends Controller
 
     public function placeAnOrder(Request $request)
     {
-        $order = $this->cartService->placeAnOrder($request);
-        return response()->json(['message' => 'Đặt hàng thành công']);
+        $data = $request;
+        $status = $this->cartService->placeAnOrder($data);
+
+        if ($status) {
+            return response()->json(['message' => 'Đặt hàng thành công']);
+        } else {
+            return redirect()->route('cart.show')->with('Giỏ hảng của bạn trống');
+        }
+
     }
 }
 ?>

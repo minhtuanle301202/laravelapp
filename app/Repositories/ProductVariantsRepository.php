@@ -48,6 +48,27 @@ class ProductVariantsRepository extends BaseRepository
 
         return $variants;
     }
+
+    public function updateVariantDetails($variantId, $data)
+    {
+        $duplicate = ProductVariants::where('product_id', $data['product_id'])
+            ->where('color', $data['color'])
+            ->where('capacity', $data['capacity'])
+            ->exists();
+
+        if ($duplicate) {
+            return [
+                'success' => false,
+                'error' => 'Biến thể này đã tồn tại trong sản phẩm'
+            ];
+        } else {
+           $variant = $this->update($variantId, $data);
+           return ['
+            success' => true,
+            'error' => ''
+           ];
+        }
+    }
 }
 
 ?>

@@ -18,4 +18,23 @@ class Orders extends Model
     public function orderDetails() {
         return $this->hasMany(OrderDetails::class, 'order_id');
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($orders) {
+            $orders->order_code = self::generateOrderCode();
+        });
+    }
+
+    public static function generateOrderCode()
+    {
+        $orderCode = str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
+
+        while (self::where('order_code', $orderCode)->exists()) {
+            $orderCode = str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
+        }
+
+        return $orderCode;
+    }
+
 }

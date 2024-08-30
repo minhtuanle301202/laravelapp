@@ -2,7 +2,6 @@
 @section('title', 'Quản Lý Tin Tức')
 @section('content')
 @section('title','Quản lý tin tức')
-    <link rel="stylesheet" href="{{ asset('css/pages-admin/manage_news.css') }}">
     @include('layouts.partials-admin.sidebar')
     <div class="main-content col-10">
         <div class="container">

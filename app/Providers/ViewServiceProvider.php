@@ -11,8 +11,18 @@ class ViewServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        // Chia sẻ dữ liệu với tất cả các view
-        View::share('categories', Categories::all());;
+        View::share('categories', Categories::all());
+
+        View::composer('*', function ($view) {
+            $statusCollection = collect([
+                'Chờ xử lý',
+                'Đang giao hàng',
+                'Giao hàng thành công',
+                'Đã hủy',
+            ]);
+
+            $view->with('statusCollection', $statusCollection);
+        });
     }
 }
 ?>

@@ -1,0 +1,15 @@
+order-info {
+    margin-top: 20px;
+}
+.order-info th, .order-info td {
+    vertical-align: middle;
+}
+.order-details {
+    margin-top: 20px;
+}
+.order-details label {
+    font-weight: bold;
+}
+.order-details .info-value {
+    padding-left: 10px;
+}

@@ -15,15 +15,7 @@ class EditVariantRequest extends FormRequest
         return [
             'price' => 'required|numeric|min:0',
             'color' => 'required|string',
-            'capacity' => [
-                'required',
-                'integer',
-                'min:0',
-                Rule::unique('product_variants')->where(function ($query) {
-                    return $query->where('product_id', $this->product_id)
-                        ->where('color', $this->color);
-                })->ignore($this->input('id')),
-            ],
+            'capacity' => 'required|integer|min:0',
             'remain_quantity' => 'required|integer|min:0',
         ];
     }
@@ -39,7 +31,6 @@ class EditVariantRequest extends FormRequest
             'capacity.min' => 'Dung lượng sản phẩm không được nhỏ hơn 0.',
             'remain_quantity.required' => 'Số lượng sản phẩm là bắt buộc.',
             'remain_quantity.min' => 'Số lượng còn lại không được nhỏ hơn 0.',
-            'capacity.unique' => 'Biển thể này đã tồn tại rồi',
         ];
     }
 

@@ -78,13 +78,13 @@ class AdminProductVariantsController extends Controller
     public function updateVariantDetails(EditVariantRequest $request)
     {
         $variantId = $request->id;
-        $data = $request->only('capacity','price','color','remain_quantity');
-        $variant = $this->productVariantsService->updateVariantDetails($variantId, $data);
+        $data = $request->only('capacity','price','color','remain_quantity','product_id');
+        $result = $this->productVariantsService->updateVariantDetails($variantId, $data);
 
-        if ($variant) {
+        if ($result['success']) {
             return response()->json(['message' => 'Cập nhật thông tin biến thể thành công']);
         } else {
-            return response()->json(['message' => 'Cập nhật thông tin biến thể thất bại']);
+            return response()->json(['error' => $result['error']],422);
         }
     }
 

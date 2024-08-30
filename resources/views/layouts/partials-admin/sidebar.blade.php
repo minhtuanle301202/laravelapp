@@ -4,7 +4,7 @@
             <a href="{{ route('admin.manage.products') }}">Quản lý sản phẩm</a>
         </li>
         <li class="manage-orders-item {{ request()->is('admin/manage/orders*') ? 'active' : '' }}">
-            <a href="#">Quản lý đơn đặt hàng</a>
+            <a href="{{ route('admin.manage.orders') }}">Quản lý đơn đặt hàng</a>
         </li>
         <li class="manage-users-item {{ request()->is('admin/manage/users*') ? 'active' : '' }}">
             <a href="{{ route('admin.manage.users') }}">Quản lý tài khoản</a>

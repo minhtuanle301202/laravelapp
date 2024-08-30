@@ -16,18 +16,8 @@ class EditUserRequest extends FormRequest
     {
         return [
             'userId' => 'required|integer',
-            'username' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('users')->ignore($this->userId),
-            ],
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                Rule::unique('users')->ignore($this->userId),
-            ],
+            'username' => 'required|string|max:255|unique:users,username,' .$this->userId,
+            'email' => 'required|email|unique:users,email,' .$this->userId,
             'phone' => 'required|regex:/^[0-9]{10,15}$/',
         ];
     }

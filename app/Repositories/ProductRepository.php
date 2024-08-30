@@ -76,12 +76,9 @@ class ProductRepository extends BaseRepository
         return $products;
     }
 
-    public function searchProduct($productName, $offset)
+    public function searchProduct($productName)
     {
-        $products = Products::where('name', 'LIKE', "%$productName%")
-            ->offset($offset)
-            ->limit(1)
-            ->get();
+        $products = Products::whereRaw('? LIKE CONCAT("%", name, "%")', [$productName])->get();
 
         return $products;
     }

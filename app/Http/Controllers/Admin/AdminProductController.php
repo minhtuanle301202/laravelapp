@@ -59,9 +59,8 @@ class AdminProductController extends Controller
 
     public function handleSearchProduct(Request $request)
     {
-        $page = $request->page;
         $productName = $request->productName;
-        $products = $this->productService->searchProduct($page,$productName);
+        $products = $this->productService->searchProduct($productName);
 
         if ($products->isEmpty()) {
             return response()->json(['message' => 'Không tìm thấy kết quả']);

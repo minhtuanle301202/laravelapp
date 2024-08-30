@@ -29,4 +29,9 @@ class ProductVariants extends Model
     {
         return $this->hasOne(CartItems::class);
     }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetails::class,'product_variants_id');
+    }
 }

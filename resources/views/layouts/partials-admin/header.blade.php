@@ -6,7 +6,7 @@
             Quản Lý Đơn Đặt Hàng
         @elseif (request()->is('admin/manage/users*'))
             Quản Lý Tài Khoản
-        @elseif (request()->is('admin/statistics*'))
+        @elseif (request()->is('admin/manage/statistics*'))
             Thống Kê Và Báo Cáo
         @elseif (request()->is('admin/manage/news*'))
             Quản Lý Tin Tức

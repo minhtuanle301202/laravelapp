@@ -64,15 +64,11 @@ class ProductVariantsService
 
     public function updateVariantDetails($variantId, $data)
     {
-        $variant = $this->productVariantsRepository->update($variantId, $data);
-
-        return $variant;
+         return $this->productVariantsRepository->updateVariantDetails($variantId, $data);
     }
 
     public function deleteVariant($variantId)
     {
-        $state = $this->productVariantsRepository->delete($variantId);
-
-        return $state;
+         return $this->productVariantsRepository->delete($variantId);
     }
 }

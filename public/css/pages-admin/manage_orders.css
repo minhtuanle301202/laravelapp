@@ -1,0 +1,111 @@
+.input-group-text {
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-left: none;
+}
+.form-control {
+    border-right: none;
+}
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+.btn-action {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+.option {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-search {
+    background-color: #07acff;
+    color: white;
+    border:none;
+    border-radius: 5px;
+    padding: 8px 10px ;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    margin-top:0;
+}
+
+.btn-search:hover {
+    background-color: #016fb5;
+    color: #ffffff;
+}
+
+.text-center {
+    margin-top:100px;
+    font-size:20px;
+}
+
+#orderStatus {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    background-image: url('https://www.svgrepo.com/show/173673/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 10px;
+}
+
+#orderStatus:focus {
+    border-color: #66afe9; /* Đổi màu viền khi được focus */
+    outline: none; /* Xóa đường viền mặc định của trình duyệt */
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.6); /* Thêm hiệu ứng shadow */
+}
+
+#orderCode::placeholder {
+    font-size:16px;
+}
+
+#startDate::placeholder {
+    font-size:16px;
+}
+
+#endDate::placeholder {
+    font-size:16px;
+}
+
+.pagination-orders {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    top:600px;
+    left:25px;
+}
+
+.pagination-orders button {
+    border: 1px solid #bcbcbc;
+    background-color: white;
+    padding: 8px 12px;
+    color: #1a202c;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.pagination-orders .prev-orders {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.pagination-orders .next-orders {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.pagination-orders button:hover {
+    background-color: #07acff;
+    color: white;
+}
+
+.disabled-select {
+    pointer-events:none;
+}

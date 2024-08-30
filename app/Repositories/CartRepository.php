@@ -86,7 +86,7 @@ class CartRepository extends BaseRepository
         return $cart;
     }
 
-    public function placeAnOrder($request)
+    public function placeAnOrder($data)
     {
         $user = auth()->user();
         $userId = $user->id;
@@ -94,18 +94,18 @@ class CartRepository extends BaseRepository
 
         if ($cart->cartItems->isEmpty())
         {
-            return redirect()->route('cart.show')->with('Giỏ hảng của bạn trống');
+              return false;
         }
 
         $order = Orders::create([
            'user_id' => $userId,
             'order_date' => NOW(),
-            'status' => 'pending',
+            'status' => 'Chờ xử lý',
             'total_price' => $cart->price,
-            'address' => $request->address,
-            'payment_method' => $request->payment_method,
-            'username' => $request->name,
-            'phone' => $request->phone_number,
+            'address' => $data->address,
+            'payment_method' => $data->payment_method,
+            'username' => $data->name,
+            'phone' => $data->phone_number,
         ]);
 
         $listOrderDetails = [];
@@ -121,16 +121,7 @@ class CartRepository extends BaseRepository
                 ];
         }
 
-        foreach($listOrderDetails as $orderDetails)
-        {
-            OrderDetails::insert([
-                'order_id' => $orderDetails['order_id'],
-                'product_variants_id' => $orderDetails['product_variants_id'],
-                'quantity' => $orderDetails['quantity'],
-                'price' => $orderDetails['price'],
-                'product_id' => $orderDetails['product_id'],
-            ]);
-        }
+        OrderDetails::insert($listOrderDetails);
 
         $cart->delete();
 

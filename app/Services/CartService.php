@@ -42,10 +42,9 @@ class CartService {
         return $cart;
     }
 
-    public function placeAnOrder($request)
+    public function placeAnOrder($data)
     {
-        $order = $this->cartRepository->placeAnOrder($request);
-        return $order;
+        return $this->cartRepository->placeAnOrder($data);
     }
 }
 ?>
