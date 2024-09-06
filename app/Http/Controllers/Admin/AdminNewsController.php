@@ -28,9 +28,9 @@ class AdminNewsController extends Controller
         $page = $request->page;
         $news = $this->newsService->getNextNews($page,self::NUMBER_NEWS_PER_PAGE);
         if ($news->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            return response()->json($news);
+            return jsonResponse(true, 'Thành công', $news);
         }
     }
 
@@ -39,9 +39,9 @@ class AdminNewsController extends Controller
         $page = $request->page;
         $news = $this->newsService->getPrevNews($page,self::NUMBER_NEWS_PER_PAGE);
         if ($news->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            return response()->json($news);
+            return jsonResponse(true, 'Thành công', $news);
         }
     }
 
@@ -50,9 +50,9 @@ class AdminNewsController extends Controller
         $data = $request->only('title','content','image','published_date');
         $news = $this->newsService->createNews($data);
         if ($news) {
-            return response()->json(['message' => 'Thêm tin tức thành công']);
+            return jsonResponse(true, 'Thêm tin tức thành công');
         } else {
-            return response()->json(['message' => 'Thêm tin tức thất bại']);
+            return jsonResponse(false, 'Thêm tin tức thất bại');
         }
     }
 
@@ -60,9 +60,9 @@ class AdminNewsController extends Controller
     {
         $news = $this->newsService->getNewsDetails($request->newsId);
         if (!$news) {
-            return response()->json(['message' => 'Tin tức không tồn tại']);
+            return jsonResponse(false, 'Tin tức không tồn tại');
         } else {
-            return response()->json($news);
+            return jsonResponse(true, 'Thành công', $news);
         }
     }
 
@@ -72,9 +72,9 @@ class AdminNewsController extends Controller
         $data = $request->only('title','content','image','published_date');
         $news = $this->newsService->updateNewsDetails($newsId, $data);
         if ($news) {
-            return response()->json(['message' => 'Cập nhật thông tin tin tức thành công']);
+            return jsonResponse(true, 'Cập nhật thông tin tin tức thành công');
         } else {
-            return response()->json(['message' => 'Cập nhật thông tin tin tức thất bại']);
+            return jsonResponse(false, 'Cập nhật thông tin tin tức thất bại');
         }
     }
 
@@ -84,9 +84,9 @@ class AdminNewsController extends Controller
 
         $result = $this->newsService->deleteNews($newsId);
         if ($result) {
-            return response()->json(['message' => 'Xóa tin tức thành công']);
+            return jsonResponse(true, 'Xóa tin tức thành công');
         } else {
-            return response()->json(['message' => 'Xóa tin tức thất bại']);
+            return jsonResponse(false, 'Xóa tin tức thất bại');
         }
     }
 

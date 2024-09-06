@@ -7,9 +7,9 @@ $(document).ready(function() {
                 page : currentPage
             },
             success: function(response) {
-                if (!response.message) {
+                if (response.message === 'Thành công') {
                     $('tbody').html('');
-                    $.each(response,function(index,newsItem) {
+                    $.each(response.data,function(index,newsItem) {
                         $('tbody').append(
                             '<tr>' +
                             '<td><img src="' + newsItem.image + '" alt="Image" width="100"></td>' +
@@ -30,6 +30,8 @@ $(document).ready(function() {
                         currentPage++;
                     }
                     $('#page-numbers').val(currentPage);
+                } else  {
+                    alert(response.message);
                 }
             }
         });
@@ -94,11 +96,11 @@ $(document).ready(function() {
             },
             success: function(response) {
 
-                $('#editNewsId').val(response.id);
-                $('#edit_title').val(response.title);
-                $('#edit_content').val(response.content);
-                $('#edit_published_date').val(response.published_date);
-                $('#edit_image').val(response.image);
+                $('#editNewsId').val(response.data.id);
+                $('#edit_title').val(response.data.title);
+                $('#edit_content').val(response.data.content);
+                $('#edit_published_date').val(response.data.published_date);
+                $('#edit_image').val(response.data.image);
                 $('#editNewsModal').modal('show');
             }
         });

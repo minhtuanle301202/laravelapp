@@ -11,9 +11,9 @@ class CartService {
         $this->cartRepository = $cartRepository;
     }
 
-    public function createOrUpdateCart($id,$request)
+    public function createOrUpdateCart($id,$data)
     {
-        return $this->cartRepository->createOrUpdateCart($id,$request);
+        return $this->cartRepository->createOrUpdateCart($id,$data);
     }
 
     public function getCart($userId)
@@ -21,16 +21,16 @@ class CartService {
         return $this->cartRepository->getCart($userId);
     }
 
-    public function updateCartItemQuantity($request)
+    public function updateCartItemQuantity($data)
     {
-        $cart = $this->cartRepository->updateCartItemQuantity($request);
+        $cart = $this->cartRepository->updateCartItemQuantity($data);
 
         return $cart;
     }
 
-    public function deleteCartItem($request)
+    public function deleteCartItem($data)
     {
-        $cart = $this->cartRepository->deleteCartItem($request);
+        $cart = $this->cartRepository->deleteCartItem($data);
 
         return $cart;
     }

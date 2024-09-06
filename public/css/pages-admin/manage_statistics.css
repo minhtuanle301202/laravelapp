@@ -1,0 +1,52 @@
+#statsTabs .nav-item .nav-link {
+    color: #77ca64;
+}
+
+#revenueChart {
+    width:400px;
+    height:200px;
+}
+
+#revenue-chart form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#revenue-chart form input:focus{
+    outline: none;
+}
+
+#revenue-chart form label {
+    font-weight: bold;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+
+#order-chart form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#order-chart form input:focus{
+    outline: none;
+}
+
+#order-chart form label {
+    font-weight: bold;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+
+#top-revenue img {
+    width: 100px;
+    height: 100px;
+}
+
+#best-seller img {
+    width: 100px;
+    height: 100px;
+}

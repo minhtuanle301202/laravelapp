@@ -58,12 +58,12 @@ class AdminRepository extends BaseRepository
         return $user;
     }
 
-    public function updateUserDetails($id, $request)
+    public function updateUserDetails($id, $data)
     {
         $user = Users::find($id);
-        $user->update(['username' => $request->username,
-            'email' => $request->email,
-            'phone' => $request->phone,
+        $user->update(['username' => $data->username,
+            'email' => $data->email,
+            'phone' => $data->phone,
             ]);
         return $user;
     }

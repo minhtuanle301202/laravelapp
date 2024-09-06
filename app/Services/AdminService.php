@@ -56,9 +56,9 @@ class AdminService
         return $user;
     }
 
-    public function updateUserDetails($id,$request)
+    public function updateUserDetails($id,$data)
     {
-        $user = $this->adminRepository->updateUserDetails($id, $request);
+        $user = $this->adminRepository->updateUserDetails($id, $data);
         return $user;
     }
 

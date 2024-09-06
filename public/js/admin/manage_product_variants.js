@@ -9,8 +9,8 @@ $(document).ready(function() {
                 productId:productId
             },
             success: function(response) {
-                if (!response.message) {
-                    $('#variants-content').html(response.variants);
+                if (response.message === 'Thành công') {
+                    $('#variants-content').html(response.data.variants);
                     if (request === 'prev-variants') {
                         currentPage--;
                     } else {
@@ -84,12 +84,12 @@ $(document).ready(function() {
                 variantId: variantId
             },
             success: function(response) {
-                console.log(response);
-                $('#edit_variant_id').val(response.id);
-                $('#edit_capacity').val(response.capacity);
-                $('#edit_color').val(response.color);
-                $('#edit_price').val(parseInt(response.price.toLocaleString('vi-VN')));
-                $('#edit_remain_quantity').val(response.remain_quantity);
+
+                $('#edit_variant_id').val(response.data.id);
+                $('#edit_capacity').val(response.data.capacity);
+                $('#edit_color').val(response.data.color);
+                $('#edit_price').val(parseInt(response.data.price.toLocaleString('vi-VN')));
+                $('#edit_remain_quantity').val(response.data.remain_quantity);
                 $('#editVariantModal').modal('show');
             }
         });

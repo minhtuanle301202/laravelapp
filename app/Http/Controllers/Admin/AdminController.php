@@ -52,11 +52,10 @@ class AdminController extends Controller
         $page = $request->page;
         $users = $this->adminService->getNextUsers($page);
         if ($users->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            return response()->json($users);
+            return jsonResponse(true, 'Thành công', $users);
         }
-
     }
 
     public function handleGetPreviousUsers(Request $request)
@@ -64,9 +63,9 @@ class AdminController extends Controller
         $page = $request->page;
         $users = $this->adminService->getPrevUsers($page);
         if ($users->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            return response()->json($users);
+            return jsonResponse(true, 'Thành công', $users);
         }
     }
 
@@ -75,9 +74,9 @@ class AdminController extends Controller
         $validatedData = $request->validated();
         $user = $this->adminService->createUser($validatedData);
         if ($user) {
-            return response()->json(['message' => 'Thêm tài khoản thành công']);
+            return jsonResponse(true, 'Thêm tài khoản thành công');
         } else {
-            return response()->json(['message' => 'Thêm tài khoản thất bại']);
+            return jsonResponse(false, 'Thêm tài khoản thất bại');
         }
     }
 
@@ -85,9 +84,9 @@ class AdminController extends Controller
     {
         $user = $this->adminService->getUserDetails($request->userId);
         if (!$user) {
-            return response()->json(['message' => 'Tài khoản không tồn tại']);
+            return jsonResponse(false, 'Tài khoản không tồn tại');
         } else {
-            return response()->json($user);
+            return jsonResponse(true, 'Thành công', $user);
         }
     }
 
@@ -95,9 +94,9 @@ class AdminController extends Controller
     {
         $user = $this->adminService->updateUserDetails($request->userId,$request);
         if ($user) {
-            return response()->json(['message' => 'Cập nhật thông tin tài khoản thành công']);
+            return jsonResponse(true, 'Cập nhật thông tin tài khoản thành công');
         } else {
-            return response()->json(['message' => 'Cập nhật thông tin tài khoản thất bại']);
+            return jsonResponse(false, 'Cập nhật thông tin tài khoản thất bại');
         }
     }
 
@@ -105,9 +104,9 @@ class AdminController extends Controller
     {
         $state = $this->adminService->deleteUser($request->userId);
         if ($state) {
-            return response()->json(['message' => 'Xóa tài khoản thành công']);
+            return jsonResponse(true, 'Xóa tài khoản thành công');
         } else {
-            return response()->json(['message' => 'Xóa tài khoản thất bại']);
+            return jsonResponse(false, 'Xóa tài khoản thất bại');
         }
     }
 

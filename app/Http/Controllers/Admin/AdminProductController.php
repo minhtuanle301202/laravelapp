@@ -24,49 +24,38 @@ class AdminProductController extends Controller
     public function handleGetNextProducts(Request $request)
     {
         $page = $request->page;
-        $categoryId = $request->categoryId;
-        if ($categoryId === "0") {
-            $products = $this->productService->getNextProducts($page,self::NUMBER_PRODUCT_PER_PAGE);
-        } else {
-            $products = $this->productService->getNextProductsByCategoryId($page,self::NUMBER_PRODUCT_PER_PAGE, $categoryId);
-        }
+        $products = $this->productService->getNextProductsByCategoryId($page,self::NUMBER_PRODUCT_PER_PAGE, $request);
 
         if ($products->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            $html = view('layouts.partials-admin.products',compact('products'))->render();
-            return response()->json(['products' => $html]);
+            $html = view('layouts.partials-admin.products', compact('products'))->render();
+            return jsonResponse(true, 'Thành công', ['products' => $html]);
         }
     }
 
     public function handleGetPreviousProducts(Request $request)
     {
         $page = $request->page;
-        $categoryId = $request->categoryId;
-        if ($categoryId === "0") {
-            $products = $this->productService->getPrevProducts($page,self::NUMBER_PRODUCT_PER_PAGE);
-        } else {
-            $products = $this->productService->getPrevProductsByCategoryId($page,self::NUMBER_PRODUCT_PER_PAGE, $categoryId);
-        }
+        $products = $this->productService->getPrevProductsByCategoryId($page,self::NUMBER_PRODUCT_PER_PAGE, $request);
 
         if ($products->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            $html = view('layouts.partials-admin.products',compact('products'))->render();
-            return response()->json(['products' => $html]);
+            $html = view('layouts.partials-admin.products', compact('products'))->render();
+            return jsonResponse(true, 'Thành công', ['products' => $html]);
         }
     }
 
     public function handleSearchProduct(Request $request)
     {
-        $productName = $request->productName;
-        $products = $this->productService->searchProduct($productName);
+        $products = $this->productService->searchProduct($request,self::NUMBER_PRODUCT_PER_PAGE);
 
         if ($products->isEmpty()) {
-            return response()->json(['message' => 'Không tìm thấy kết quả']);
+            return jsonResponse(false, 'Không tìm thấy kết quả');
         } else {
             $html = view('layouts.partials-admin.products', compact('products'))->render();
-            return response()->json(['products' => $html]);
+            return jsonResponse(true, 'Thành công', ['products' => $html]);
         }
     }
 
@@ -77,9 +66,9 @@ class AdminProductController extends Controller
         $product =  $this->productService->getProductById($productId);
 
         if (!$product) {
-            return response()->json(['message' => 'Sản phẩm không tồn tại']);
+            return jsonResponse(false, 'Sản phẩm không tồn tại');
         } else {
-            return response()->json($product);
+            return jsonResponse(true, 'Thành công', $product);
         }
     }
 
@@ -94,7 +83,6 @@ class AdminProductController extends Controller
         } else {
             return response()->json(['message' => 'Cập nhật thông tin sản phẩm thất bại']);
         }
-
     }
 
     public function deleteProduct(Request $request)
@@ -103,9 +91,9 @@ class AdminProductController extends Controller
 
         $result = $this->productService->deleteProduct($productId);
         if ($result) {
-            return response()->json(['message' => 'Xóa sản phẩm thành công']);
+            return jsonResponse(true, 'Xóa sản phẩm thành công');
         } else {
-            return response()->json(['message' => 'Xóa sản phẩm thất bại']);
+            return jsonResponse(false, 'Xóa sản phẩm thất bại');
         }
     }
 
@@ -114,9 +102,9 @@ class AdminProductController extends Controller
         $data = $request->only('name','description','image','category_id');
         $product = $this->productService->createProduct($data);
         if ($product) {
-            return response()->json(['message' => 'Thêm sản phẩm thành công']);
+            return jsonResponse(true, 'Thêm sản phẩm thành công');
         } else {
-            return response()->json(['message' => 'Thêm sản phẩm thất bại']);
+            return jsonResponse(false, 'Thêm sản phẩm thất bại');
         }
     }
 }

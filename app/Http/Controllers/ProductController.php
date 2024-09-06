@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use App\Services\ProductService;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
-use App\Exceptions\UserException;
 
 class ProductController extends Controller
 {
@@ -35,10 +34,6 @@ class ProductController extends Controller
     {
         $product = $this->productService->getProductById($id);
 
-        if (!$product) {
-            throw new UserException();
-        }
-
         $variants = $product->variants;
         $firstVariants = $variants->first();
         $initialPrice = $firstVariants->price;
@@ -51,10 +46,6 @@ class ProductController extends Controller
         $categoryId = $id;
         $products = $this->productService->getProductsByCategoryIdInCategoryPage($categoryId);
         $products->load('variants');
-
-        if ($products->isEmpty()) {
-            throw new UserException();
-        }
 
         $category = $products->first()->category;
 

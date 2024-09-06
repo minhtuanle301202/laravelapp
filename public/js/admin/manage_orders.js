@@ -1,12 +1,4 @@
 $(document).ready(function() {
-    $('#orderStatus').change(function() {
-        let status = $(this).val();
-        event.preventDefault();
-        $('#page-numbers').val(0);
-        let currentPage = $('#page-numbers').val();
-        loadOrders('next-orders',currentPage,status);
-    });
-
     function loadOrders(request,currentPage,status,startDate,endDate) {
         $.ajax({
             url: '/admin/manage/orders/' + request,
@@ -18,8 +10,8 @@ $(document).ready(function() {
                 endDate: endDate,
             },
             success: function(response) {
-                if (!response.message) {
-                    $('#orders-content').html(response.orders);
+                if (response.message === 'Thành công') {
+                    $('#orders-content').html(response.data.orders);
                     if (request === 'prev-orders') {
                         currentPage--;
                     } else {
@@ -81,8 +73,8 @@ $(document).ready(function() {
                     endDate: endDate,
                 },
                 success: function(response) {
-                    if (!response.message) {
-                        $('#orders-content').html(response.orders);
+                    if (response.message === 'Thành công') {
+                        $('#orders-content').html(response.data.orders);
                         currentPage++;
                         $('#page-numbers').val(currentPage);
                     } else {
@@ -104,13 +96,13 @@ $(document).ready(function() {
                 orderId: orderId
             },
             success: function(response) {
-                $('#editOrderId').val(response.id);
-                $('#editUserName').val(response.username);
-                $('#editPhone').val(response.phone);
-                $('#editStatus').val(response.status);
-                $('#editPaymentMethod').val(response.payment_method);
-                $('#editAddress').val(response.address);
-                $('#editOrderDate').val(response.order_date.split(' ')[0]);
+                $('#editOrderId').val(response.data.id);
+                $('#editUserName').val(response.data.username);
+                $('#editPhone').val(response.data.phone);
+                $('#editStatus').val(response.data.status);
+                $('#editPaymentMethod').val(response.data.payment_method);
+                $('#editAddress').val(response.data.address);
+                $('#editOrderDate').val(response.data.order_date.split(' ')[0]);
                 $('#editOrderModal').modal('show');
             }
         });

@@ -192,8 +192,6 @@ header a {
     color: #77ca64;
 }
 
-
-
 @media (max-width: 768px) {
     .top-header {
         padding: 0 5%;
@@ -245,6 +243,10 @@ header a {
         margin: 5px auto;
         width: 75%;
     }
+    .bottom-header .none-button {
+        visibility: hidden ;
+    }
+
 }
 
 

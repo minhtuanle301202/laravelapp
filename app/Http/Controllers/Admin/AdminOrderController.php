@@ -26,10 +26,10 @@ class AdminOrderController extends Controller
         $orders = $this->orderService->getNextOrders($page,self::NUMBER_ORDER_PER_PAGE,$request);
 
         if ($orders->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            $html = view('layouts.partials-admin.orders',compact('orders'))->render();
-            return response()->json(['orders' => $html]);
+            $html = view('layouts.partials-admin.orders', compact('orders'))->render();
+            return jsonResponse(true, 'Thành công', ['orders' => $html]);
         }
     }
 
@@ -39,10 +39,10 @@ class AdminOrderController extends Controller
         $orders = $this->orderService->getPrevOrders($page,self::NUMBER_ORDER_PER_PAGE,$request);
 
         if ($orders->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            $html = view('layouts.partials-admin.orders',compact('orders'))->render();
-            return response()->json(['orders' => $html]);
+            $html = view('layouts.partials-admin.orders', compact('orders'))->render();
+            return jsonResponse(true, 'Thành công', ['orders' => $html]);
         }
     }
 
@@ -50,21 +50,20 @@ class AdminOrderController extends Controller
     {
         $orders = $this->orderService->searchOrders($request,self::NUMBER_ORDER_PER_PAGE);
         if ($orders->isEmpty()) {
-            return response()->json(['message' => 'Không tìm thấy kết quả']);
+            return jsonResponse(false, 'Không tìm thấy kết quả');
         } else {
-            $html = view('layouts.partials-admin.orders',compact('orders'))->render();
-            return response()->json(['orders' => $html]);
+            $html = view('layouts.partials-admin.orders', compact('orders'))->render();
+            return jsonResponse(true, 'Thành công', ['orders' => $html]);
         }
-
     }
 
     public function handleGetOrderInfo(Request $request)
     {
         $order = $this->orderService->getOrderInfo($request->orderId);
         if (!$order) {
-            return response()->json(['message' => 'Đơn hàng không tồn tại']);
+            return jsonResponse(false, 'Đơn hàng không tồn tại');
         } else {
-            return response()->json($order);
+            return jsonResponse(true, 'Thành công', $order);
         }
     }
 
@@ -75,9 +74,9 @@ class AdminOrderController extends Controller
 
         $order = $this->orderService->updateOrder($orderId, $data);
         if ($order) {
-            return response()->json(['message' => 'Cập nhật thông tin đơn hàng thành công']);
+            return jsonResponse(true, 'Cập nhật thông tin đơn hàng thành công');
         } else {
-            return response()->json(['message' => 'Cập nhật thông tin đơn hàng thất bại']);
+            return jsonResponse(false, 'Cập nhật thông tin đơn hàng thất bại');
         }
     }
 

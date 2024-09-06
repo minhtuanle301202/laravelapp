@@ -4,7 +4,6 @@ use App\Http\Controllers\Controller;
 use App\Services\NewsService;
 use App\Models\News;
 use Illuminate\Http\Request;
-use App\Exceptions\UserException;
 
 class NewsController extends Controller {
     protected NewsService $newsService;

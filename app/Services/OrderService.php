@@ -17,24 +17,24 @@ class  OrderService
         return $this->orderRepository->getAllOrders($perPage);
     }
 
-    public function getPrevOrders($page,$perPage,$request)
+    public function getPrevOrders($page,$perPage,$data)
     {
         $offset = ($page - 2) * $perPage;
-        $orders = $this->orderRepository->getOrdersInPagination($offset,$perPage,$request);
+        $orders = $this->orderRepository->getOrdersInPagination($offset,$perPage,$data);
         return $orders;
     }
 
-    public function getNextOrders($page,$perPage,$request)
+    public function getNextOrders($page,$perPage,$data)
     {
         $offset = $page * $perPage;
-        $orders = $this->orderRepository->getOrdersInPagination($offset,$perPage,$request);
+        $orders = $this->orderRepository->getOrdersInPagination($offset,$perPage,$data);
 
         return $orders;
     }
 
-    public function searchOrders($request,$perPage)
+    public function searchOrders($data,$perPage)
     {
-        $orders = $this->orderRepository->searchOrders($request,$perPage);
+        $orders = $this->orderRepository->searchOrders($data,$perPage);
 
         return $orders;
     }
@@ -48,6 +48,10 @@ class  OrderService
 
     public function updateOrder($id,$data)
     {
+        if ($data['status'] == 'Giao hàng thành công') {
+            $this->orderRepository->updateProductQuantity($id);
+        }
+
         $order = $this->orderRepository->update($id,$data);
 
         return $order;
@@ -71,5 +75,26 @@ class  OrderService
     {
         return OrderDetails::where('order_id', $id)->first();
     }
+
+    public function getMonthlyOrders($selectedYear)
+    {
+        return $this->orderRepository->getMonthlyOrders($selectedYear);
+    }
+
+    public function getAvailableYears()
+    {
+        return $this->orderRepository->getAvailableYears();
+    }
+
+    public function showTopRevenue()
+    {
+        return $this->orderRepository->getTopRevenue();
+    }
+
+    public function showBestSeller()
+    {
+        return $this->orderRepository->getBestSeller();
+    }
+
 }
 ?>

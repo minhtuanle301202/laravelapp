@@ -50,24 +50,31 @@ class ProductRepository extends BaseRepository
     public function getAllProducts($perPage)
     {
         $products = Products::orderBy('id','desc')
-                    ->take($perPage)
-                    ->get();
-        return $products;
-    }
-
-    public function getProductsInPagination($perPage,$offset)
-    {
-        $products = Products::orderBy('id','desc')
-            ->offset($offset)
-            ->limit($perPage)
+            ->take($perPage)
             ->get();
-
         return $products;
     }
 
-    public function getProductsByCategoryIdInPagination($perPage,$offset,$categoryId)
+    public function findProducts($data)
     {
-        $products = Products::where('category_id',$categoryId)
+        $productName = $data->productName;
+        $categoryId = $data->categoryId;
+        $query = Products::query();
+
+        if (!empty($productName)) {
+            $query->whereRaw('? like CONCAT("%", name, "%")', [$productName]);
+        }
+
+        if (!empty($categoryId)) {
+            $query->where('category_id', $categoryId);
+        }
+
+        return $query;
+    }
+
+    public function getProductsByCategoryIdInPagination($perPage,$offset,$data)
+    {
+        $products = $this->findProducts($data)
             ->orderBy('id','desc')
             ->offset($offset)
             ->limit($perPage)
@@ -76,9 +83,12 @@ class ProductRepository extends BaseRepository
         return $products;
     }
 
-    public function searchProduct($productName)
+    public function searchProduct($data,$perPage)
     {
-        $products = Products::whereRaw('? LIKE CONCAT("%", name, "%")', [$productName])->get();
+        $products = $this->findProducts($data)
+            ->orderBy('id','desc')
+            ->take($perPage)
+            ->get();
 
         return $products;
     }

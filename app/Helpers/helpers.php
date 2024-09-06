@@ -1,7 +1,6 @@
 <?php
 if (!function_exists('jsonResponse')) {
-
-    function jsonResponse($data, $message = null, $success = true)
+    function jsonResponse($success, $message, $data = null)
     {
         return response()->json([
             'success' => $success,

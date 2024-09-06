@@ -3,6 +3,8 @@ namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use App\Models\Orders;
 use Illuminate\Support\Carbon;
+use App\Models\OrderDetails;
+use Illuminate\Support\Facades\DB;
 
 class OrderRepository extends BaseRepository
 {
@@ -20,12 +22,12 @@ class OrderRepository extends BaseRepository
     }
 
 
-    public function findOrders($request)
+    public function findOrders($data)
     {
-        $status = $request->status;
-        $orderCode = $request->orderCode;
-        $endDate = $request->endDate;
-        $startDate = $request->startDate;
+        $status = $data->status;
+        $orderCode = $data->orderCode;
+        $endDate = $data->endDate;
+        $startDate = $data->startDate;
         $query = Orders::query();
 
         if (!empty($status)) {
@@ -50,9 +52,9 @@ class OrderRepository extends BaseRepository
         return $query;
     }
 
-    public function getOrdersInPagination($offset,$perPage,$request)
+    public function getOrdersInPagination($offset,$perPage,$data)
     {
-        $orders = $this->findOrders($request)->orderBy('id','desc')
+        $orders = $this->findOrders($data)->orderBy('id','desc')
             ->offset($offset)
             ->limit($perPage)
             ->get();
@@ -60,13 +62,81 @@ class OrderRepository extends BaseRepository
         return $orders;
     }
 
-    public function searchOrders($request,$perPage)
+    public function searchOrders($data,$perPage)
     {
-        $orders = $this->findOrders($request)->orderBy('id','desc')
+        $orders = $this->findOrders($data)->orderBy('id','desc')
                         ->take($perPage)
                         ->get();
 
         return $orders;
+    }
+
+    public function updateProductQuantity($id) {
+        $order = Orders::find($id);
+        $orderDetails = $order->orderDetails;
+
+        foreach ($orderDetails as $orderItem) {
+            $variant = $orderItem->productVariant;
+            $variant->sold_quantity++;
+            $variant->remain_quantity--;
+            $variant->save();
+        }
+    }
+
+    public function getMonthlyOrders($selectedYear)
+    {
+        $ordersByMonth = Orders::selectRaw('MONTH(order_date) as month, COUNT(id) as total_orders,SUM(total_price) as revenue')
+            ->where('status','Giao hàng thành công')
+            ->whereYear('order_date', $selectedYear)
+            ->groupBy('month')
+            ->get();
+
+        $months = [];
+        $orderCounts = [];
+        $revenue = [];
+
+        foreach ($ordersByMonth as $data) {
+            $months[] = Carbon::create()->month($data->month)->format('F'); // Lấy tên tháng
+            $orderCounts[] = $data->total_orders;
+            $revenue[] = $data->revenue;
+        }
+
+        return ['months' => $months, 'orderCounts' => $orderCounts,'revenue' => $revenue];
+    }
+
+    public function getAvailableYears()
+    {
+        return Orders::selectRaw('YEAR(order_date) as year')
+            ->where('status','Giao hàng thành công')
+            ->groupBy('year')
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+    }
+
+    public function getTopRevenue()
+    {
+        return OrderDetails::with('product')
+            ->whereHas('order', function ($query) {
+                $query->where('status', 'Giao hàng thành công');
+            })
+            ->select('product_id', DB::raw('SUM(price) as total_revenue'))
+            ->groupBy('product_id')
+            ->orderByDesc('total_revenue')
+            ->take(5)
+            ->get();
+    }
+
+    public function getBestSeller()
+    {
+        return OrderDetails::with('product')
+            ->whereHas('order', function ($query) {
+                $query->where('status', 'Giao hàng thành công');
+            })
+            ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+            ->groupBy('product_id')
+            ->orderByDesc('total_quantity')
+            ->take(5)
+            ->get();
     }
 }
 ?>

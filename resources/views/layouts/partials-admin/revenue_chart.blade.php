@@ -1,10 +1,17 @@
 <div class="tab-pane fade" id="revenue-chart" role="tabpanel" aria-labelledby="revenue-chart-tab">
     <h3 class="ml-3">Doanh thu</h3>
-    <label for="revenue-year-select" class="ml-3">Chọn năm:</label>
-    <select id="revenue-year-select" class="form-control col-3 ml-3">
-        @foreach(range(date('Y'), date('Y') - 10) as $year)
-            <option value="{{ $year }}">{{ $year }}</option>
-        @endforeach
-    </select>
+    <form method="GET" action="{{ route('admin.manage.show-chart') }}">
+            <label for="year" >SỐ LIỆU THỐNG KÊ NĂM:</label>
+            <select name="year" id="year" onchange="this.form.submit()" >
+                @foreach($years as $year)
+                    <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>
+                        {{ $year }}
+                    </option>
+                @endforeach
+            </select>
+    </form>
     <canvas id="revenueChart"></canvas>
+    <input type="hidden" id="chartMonths" value='@json($months)'>
+    <input type="hidden" id="chartRevenue" value='@json($revenue)'>
 </div>
+

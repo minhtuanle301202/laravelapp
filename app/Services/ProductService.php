@@ -50,41 +50,26 @@ class ProductService
         return $products;
     }
 
-    public  function getNextProducts($page,$perPage)
-    {
-        $offset = $page * $perPage;
-        $products = $this->productRepository->getProductsInPagination($perPage,$offset);
 
-        return $products;
-    }
-
-    public function getPrevProducts($page,$perPage)
+    public function getPrevProductsByCategoryId($page,$perPage,$data)
     {
         $offset = ($page - 2) * $perPage;
-        $products = $this->productRepository->getProductsInPagination($perPage,$offset);
+        $products = $this->productRepository->getProductsByCategoryIdInPagination($perPage,$offset,$data);
 
         return $products;
     }
 
-    public function getPrevProductsByCategoryId($page,$perPage,$categoryId)
-    {
-        $offset = ($page - 2) * $perPage;
-        $products = $this->productRepository->getProductsByCategoryIdInPagination($perPage,$offset,$categoryId);
-
-        return $products;
-    }
-
-    public function getNextProductsByCategoryId($page,$perPage,$categoryId)
+    public function getNextProductsByCategoryId($page,$perPage,$data)
     {
         $offset = $page * $perPage;
-        $products = $this->productRepository->getProductsByCategoryIdInPagination($perPage,$offset,$categoryId);
+        $products = $this->productRepository->getProductsByCategoryIdInPagination($perPage,$offset,$data);
 
         return $products;
     }
 
-    public function searchProduct($productName)
+    public function searchProduct($data,$perPage)
     {
-        return $this->productRepository->searchProduct($productName);
+        return $this->productRepository->searchProduct($data,$perPage);
 
     }
 

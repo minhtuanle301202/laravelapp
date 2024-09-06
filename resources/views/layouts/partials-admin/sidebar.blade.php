@@ -9,8 +9,8 @@
         <li class="manage-users-item {{ request()->is('admin/manage/users*') ? 'active' : '' }}">
             <a href="{{ route('admin.manage.users') }}">Quản lý tài khoản</a>
         </li>
-        <li class="manage-reports-item {{ request()->is('admin/statistics*') ? 'active' : '' }}">
-            <a href="#">Thống kê và báo cáo</a>
+        <li class="manage-reports-item {{ request()->is('admin/manage/statistics*') ? 'active' : '' }}">
+            <a href="{{ route('admin.manage.show-chart') }}">Thống kê và báo cáo</a>
         </li>
         <li class="manage-news-item {{ request()->is('admin/manage/news*') ? 'active' : '' }}">
             <a href="{{ route('admin.manage.news') }}">Quản lý tin tức</a>

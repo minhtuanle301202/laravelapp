@@ -31,10 +31,10 @@ class AdminProductVariantsController extends Controller
         $variants = $this->productVariantsService->getNextVariants($request->productId, $page,self::NUMBER_VARIANTS_PER_PAGE);
 
         if ($variants->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            $html = view('layouts.partials-admin.product_variants',compact('variants'))->render();
-            return response()->json(['variants' => $html]);
+            $html = view('layouts.partials-admin.product_variants', compact('variants'))->render();
+            return jsonResponse(true, 'Thành công', ['variants' => $html]);
         }
     }
 
@@ -44,10 +44,10 @@ class AdminProductVariantsController extends Controller
         $variants = $this->productVariantsService->getPrevVariants($request->productId, $page,self::NUMBER_VARIANTS_PER_PAGE);
 
         if ($variants->isEmpty()) {
-            return response()->json(['message' => 'Không còn dữ liệu']);
+            return jsonResponse(false, 'Không còn dữ liệu');
         } else {
-            $html = view('layouts.partials-admin.product_variants',compact('variants'))->render();
-            return response()->json(['variants' => $html]);
+            $html = view('layouts.partials-admin.product_variants', compact('variants'))->render();
+            return jsonResponse(true, 'Thành công', ['variants' => $html]);
         }
     }
 
@@ -58,9 +58,9 @@ class AdminProductVariantsController extends Controller
         $variant = $this->productVariantsService->createVariant($data);
 
         if ($variant) {
-            return response()->json(['message' => 'Thêm biến thể thành công']);
+            return jsonResponse(true, 'Thêm biến thể thành công');
         } else {
-            return response()->json(['message' => 'Thêm biến thể thất bại']);
+            return jsonResponse(false, 'Thêm biến thể thất bại');
         }
     }
 
@@ -69,9 +69,9 @@ class AdminProductVariantsController extends Controller
         $variant = $this->productVariantsService->getVariantDetails($request->variantId);
 
         if (!$variant) {
-            return response()->json(['message' => 'Biến thể không tồn tại']);
+            return jsonResponse(false, 'Biến thể không tồn tại');
         } else {
-            return response()->json($variant);
+            return jsonResponse(true, 'Thành công', $variant);
         }
     }
 
@@ -82,9 +82,9 @@ class AdminProductVariantsController extends Controller
         $result = $this->productVariantsService->updateVariantDetails($variantId, $data);
 
         if ($result['success']) {
-            return response()->json(['message' => 'Cập nhật thông tin biến thể thành công']);
+            return jsonResponse(true, 'Cập nhật thông tin biến thể thành công');
         } else {
-            return response()->json(['error' => $result['error']],422);
+            return jsonResponse(false, $result['error'], null, 422);
         }
     }
 
@@ -94,9 +94,9 @@ class AdminProductVariantsController extends Controller
         $state = $this->productVariantsService->deleteVariant($variantId);
 
         if ($state) {
-            return response()->json(['message' => 'Xóa biến thể thành công']);
+            return jsonResponse(true, 'Xóa biến thể thành công');
         } else {
-            return response()->json(['message' => 'Xóa biến thể thất bại']);
+            return jsonResponse(false, 'Xóa biến thể thất bại');
         }
     }
 }

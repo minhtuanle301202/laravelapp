@@ -20,7 +20,7 @@ class CartRepository extends BaseRepository
         $cart->save();
     }
 
-    public function createOrUpdateCart($id,$request)
+    public function createOrUpdateCart($id,$data)
     {
         $cart = Carts::firstOrNew(['user_id' => $id]);
         $cart->price = 0;
@@ -28,18 +28,18 @@ class CartRepository extends BaseRepository
         $cart->save();
 
         $cartItem = CartItems::where('cart_id',$cart->id)
-            ->where('variants_product_id',$request->variant_id)
+            ->where('variants_product_id',$data->variant_id)
             ->first();
 
         if ($cartItem) {
-            $cartItem->quantity += $request->quantity;
+            $cartItem->quantity += $data->quantity;
             $cartItem->save();
         } else {
             $cartItem = new CartItems();
             $cartItem->cart_id = $cart->id;
-            $cartItem->variants_product_id = $request->variant_id;
-            $cartItem->price = $request->final_price;
-            $cartItem->quantity = $request->quantity;
+            $cartItem->variants_product_id = $data->variant_id;
+            $cartItem->price = $data->final_price;
+            $cartItem->quantity = $data->quantity;
             $cartItem->save();
         }
 
@@ -57,21 +57,21 @@ class CartRepository extends BaseRepository
         return $cart;
     }
 
-    public function updateCartItemQuantity($request)
+    public function updateCartItemQuantity($data)
     {
-        $cartItem = CartItems::find($request->cartItemId);
+        $cartItem = CartItems::find($data->cartItemId);
         $cartItem->update([
-            'price' => $request->finalPrice,
-            'quantity' => $request->quantity,
+            'price' => $data->finalPrice,
+            'quantity' => $data->quantity,
         ]);
         $cart = $cartItem->cart ;
         $this->updateCart($cart);
         return $cart;
     }
 
-    public function deleteCartItem($request)
+    public function deleteCartItem($data)
     {
-        $cartItem = CartItems::find($request->cartItemId);
+        $cartItem = CartItems::find($data->cartItemId);
         $cart = $cartItem->cart;
         $cartItem->delete();
         $this->updateCart($cart);

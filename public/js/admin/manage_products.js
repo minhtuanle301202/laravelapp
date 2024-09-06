@@ -1,22 +1,16 @@
 $(document).ready(function() {
-    $('#productType').change(function() {
-        let categoryId = $(this).val();
-        event.preventDefault();
-        $('#page-numbers').val(0);
-        let currentPage = $('#page-numbers').val();
-        loadProducts('next-products',currentPage,categoryId);
-    });
-    function loadProducts(request,currentPage,categoryId) {
+    function loadProducts(request,currentPage,categoryId,productName) {
             $.ajax({
                 url: '/admin/manage/products/' + request,
                 method: 'GET',
                 data: {
                     page : currentPage,
                     categoryId: categoryId,
+                    productName: productName,
                 },
                 success: function(response) {
-                    if (!response.message) {
-                        $('#product-content').html(response.products);
+                    if (response.message === 'Thành công') {
+                        $('#product-content').html(response.data.products);
                         if (request === 'prev-products') {
                             currentPage--;
                         } else {
@@ -34,9 +28,10 @@ $(document).ready(function() {
         event.preventDefault();
         let currentPage = $('#page-numbers').val();
         let categoryId = $('#productType').val();
+        let productName = $('#productName').val();
 
         if (currentPage > 1) {
-            loadProducts('prev-products',currentPage,categoryId);
+            loadProducts('prev-products',currentPage,categoryId,productName);
         }
     })
 
@@ -44,25 +39,29 @@ $(document).ready(function() {
         event.preventDefault();
         let currentPage = $('#page-numbers').val();
         let categoryId = $('#productType').val();
-        loadProducts('next-products',currentPage,categoryId);
+        let productName = $('#productName').val();
+
+        loadProducts('next-products',currentPage,categoryId,productName);
     })
 
     $('.btn-search').click(function() {
         event.preventDefault();
         let productName = $('#productName').val();
+        let categoryId = $('#productType').val();
         $('#page-numbers').val(0);
         let currentPage = $('#page-numbers').val();
-        if (productName !== '') {
+
             $.ajax({
                 url: '/admin/manage/products/search-product',
                 method: 'GET',
                 data: {
                     page : currentPage,
                     productName: productName,
+                    categoryId: categoryId,
                 },
                 success: function(response) {
-                    if (!response.message) {
-                        $('#product-content').html(response.products);
+                    if (response.message === 'Thành công') {
+                        $('#product-content').html(response.data.products);
                         currentPage++;
                         $('#page-numbers').val(currentPage);
                     } else {
@@ -70,9 +69,6 @@ $(document).ready(function() {
                     }
                 }
             })
-        } else {
-            alert('Vui lòng nhập tên sản phẩm trước khi tìm kiếm.');
-        }
     })
 
     $('.btn-add-product').click(function(){
@@ -120,11 +116,11 @@ $(document).ready(function() {
             },
             success: function(response) {
 
-                $('#edit_product_id').val(response.id);
-                $('#edit_name').val(response.name);
-                $('#edit_description').val(response.description);
-                $('#edit_image').val(response.image);
-                $('#edit_category_id').val(response.category_id);
+                $('#edit_product_id').val(response.data.id);
+                $('#edit_name').val(response.data.name);
+                $('#edit_description').val(response.data.description);
+                $('#edit_image').val(response.data.image);
+                $('#edit_category_id').val(response.data.category_id);
                 $('#editProductModal').modal('show');
             }
         });

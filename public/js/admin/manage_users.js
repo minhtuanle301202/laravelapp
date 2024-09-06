@@ -7,10 +7,10 @@ $(document).ready(function() {
                 page : currentPage
             },
             success: function(response) {
-                if (!response.message) {
+                if (response.message === 'Thành công') {
                     $('tbody').html('');
 
-                    $.each(response,function(index,user) {
+                    $.each(response.data,function(index,user) {
                         $('tbody').append(
                             '<tr>' +
                             '<td>' + user.username + '</td>' +
@@ -33,6 +33,8 @@ $(document).ready(function() {
                         currentPage++;
                     }
                     $('#page-numbers').val(currentPage);
+                } else {
+                    alert(response.message);
                 }
             }
         });
@@ -96,10 +98,10 @@ $(document).ready(function() {
             },
             success: function(response) {
 
-                $('#editUserId').val(response.id);
-                $('#editUsername').val(response.username);
-                $('#editEmail').val(response.email);
-                $('#editPhone').val(response.phone);
+                $('#editUserId').val(response.data.id);
+                $('#editUsername').val(response.data.username);
+                $('#editEmail').val(response.data.email);
+                $('#editPhone').val(response.data.phone);
                 $('#editUserModal').modal('show');
             }
         });
