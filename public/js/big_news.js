@@ -16,9 +16,9 @@ $(document).ready(function() {
                             '<div class="col-lg-3 col-md-4 col-sm-6 mb-4 p-2">' +
                             '<div class="news-item">' +
                             '<img src="' + item.image + '" alt="Tin tức">' +
-                            '<div class="news-title"><a href="#">' + item.title + '</a></div>' +
+                            '<div class="news-title"><a href="/news/news-details/'+ item.id +'" >' + item.title + '</a></div>' +
                             '<div class="posted-time">' + item.published_date + '</div>' +
-                            '<div class="justify">' + item.content + '</div>' +
+                            '<div class="justify">' + item.content.substring(0, 150) + '...</div>' +
                             '</div>' +
                             '</div>'
                         );
@@ -48,9 +48,8 @@ $(document).ready(function() {
                             '<div class="col-lg-3 col-md-4 col-sm-6 mb-4 p-2">' +
                             '<div class="news-item">' +
                             '<img src="' + item.image + '" alt="Tin tức">' +
-                            '<div class="news-title"><a href="#">' + item.title + '</a></div>' +
-                            '<div class="posted-time">' + item.published_date + '</div>' +
-                            '<div class="justify">' + item.content + '</div>' +
+                            '<div class="news-title"><a href="/news/news-details/'+item.id+'">' + item.title + '</a></div>' +
+                            '<div class="justify">' + item.content.substring(0, 150) + '...</div>' +
                             '</div>' +
                             '</div>'
                         );

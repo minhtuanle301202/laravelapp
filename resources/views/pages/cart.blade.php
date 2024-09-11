@@ -40,9 +40,10 @@
                                         <button class="btn-add" data-cartitem-id="{{ $cartItem->id }}">+</button>
                                     </div>
                                 </td>
-                                <td class="cartItem-price-{{ $cartItem->id }}">{{ $cartItem->price }}</td>
+                                <td class="cartItem-price-{{ $cartItem->id }}">{{ number_format($cartItem->price,0,',','.') }} VND</td>
                                 <td><button class="btn-delete btn btn-primary"  data-cartitem-id="{{ $cartItem->id }}"><i class="fa-solid fa-trash"></i></button></td>
                             </tr>
+                            <input type="hidden" class="remain-quantity-{{ $cartItem->id }}" value="{{ $cartItem->productVariant->remain_quantity }}">
                         @endforeach
                         <meta name="csrf-token" content="{{ csrf_token() }}">
                         </tbody>

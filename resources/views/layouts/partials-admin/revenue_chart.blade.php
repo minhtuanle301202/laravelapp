@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="revenue-chart" role="tabpanel" aria-labelledby="revenue-chart-tab">
+<div class="tab-pane fade show active" id="revenue-chart" role="tabpanel" aria-labelledby="revenue-chart-tab">
     <h3 class="ml-3">Doanh thu</h3>
     <form method="GET" action="{{ route('admin.manage.show-chart') }}">
             <label for="year" >SỐ LIỆU THỐNG KÊ NĂM:</label>

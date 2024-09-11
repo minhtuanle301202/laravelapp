@@ -5,6 +5,7 @@ use App\Models\Orders;
 use Illuminate\Support\Carbon;
 use App\Models\OrderDetails;
 use Illuminate\Support\Facades\DB;
+use App\Models\Products;
 
 class OrderRepository extends BaseRepository
 {
@@ -77,8 +78,8 @@ class OrderRepository extends BaseRepository
 
         foreach ($orderDetails as $orderItem) {
             $variant = $orderItem->productVariant;
-            $variant->sold_quantity++;
-            $variant->remain_quantity--;
+            $variant->sold_quantity -= $orderItem->quantity;
+            $variant->remain_quantity += $orderItem->quantity;
             $variant->save();
         }
     }
@@ -86,7 +87,7 @@ class OrderRepository extends BaseRepository
     public function getMonthlyOrders($selectedYear)
     {
         $ordersByMonth = Orders::selectRaw('MONTH(order_date) as month, COUNT(id) as total_orders,SUM(total_price) as revenue')
-            ->where('status','Giao hàng thành công')
+            ->where('status', '!=','Đã hủy')
             ->whereYear('order_date', $selectedYear)
             ->groupBy('month')
             ->get();
@@ -107,7 +108,7 @@ class OrderRepository extends BaseRepository
     public function getAvailableYears()
     {
         return Orders::selectRaw('YEAR(order_date) as year')
-            ->where('status','Giao hàng thành công')
+            ->where('status', '!=','Đã hủy')
             ->groupBy('year')
             ->orderBy('year', 'desc')
             ->pluck('year');
@@ -117,7 +118,7 @@ class OrderRepository extends BaseRepository
     {
         return OrderDetails::with('product')
             ->whereHas('order', function ($query) {
-                $query->where('status', 'Giao hàng thành công');
+                $query->where('status', '!=','Đã hủy');
             })
             ->select('product_id', DB::raw('SUM(price) as total_revenue'))
             ->groupBy('product_id')
@@ -126,17 +127,57 @@ class OrderRepository extends BaseRepository
             ->get();
     }
 
-    public function getBestSeller()
+    public function findTopProducts($data) {
+        $startDate = $data->startDate;
+        $endDate = $data->endDate;
+        $sortBy = $data->sortBy;
+        $sortOrder = $data->sortOrder;
+
+        return OrderDetails::with('product')
+            ->whereHas('order', function ($query) use ($startDate, $endDate) {
+                $query->where('status', '!=','Đã hủy');
+
+                if (!empty($startDate) && !empty($endDate)) {
+                    $startDate = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+                    $endDate = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+                    $query->whereBetween('order_date', [$startDate, $endDate]);
+                }
+                elseif (!empty($startDate)) {
+                    $startDate = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+                    $query->whereDate('order_date', '>=', $startDate);
+                }
+                elseif (!empty($endDate)) {
+                    $endDate = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+                    $query->whereDate('order_date', '<=', $endDate);
+                }
+            })
+            ->select('product_id', DB::raw('SUM(price) as total_revenue'),DB::raw('SUM(quantity) as total_quantity'))
+            ->groupBy('product_id')
+            ->orderBy($sortBy,$sortOrder);
+    }
+
+    public function getBestSeller($perPage)
     {
         return OrderDetails::with('product')
             ->whereHas('order', function ($query) {
-                $query->where('status', 'Giao hàng thành công');
+                $query->where('status', '!=','Đã hủy');
             })
-            ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+            ->select('product_id', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(price) as total_revenue'))
             ->groupBy('product_id')
             ->orderByDesc('total_quantity')
-            ->take(5)
+            ->take($perPage)
             ->get();
     }
+
+    public function searchTopProducts($data,$perPage)
+    {
+        return $this->findTopProducts($data)->take($perPage)->get();
+    }
+
+    public function getTopProductsInPagination($offset,$perPage,$data)
+    {
+        return $this->findTopProducts($data)->offset($offset)->limit($perPage)->get();
+    }
+
 }
 ?>

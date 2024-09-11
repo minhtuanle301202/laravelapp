@@ -4,7 +4,7 @@
     @include('layouts.partials-admin.sidebar')
     <div class="main-content col-10">
         <div class="container">
-            <div class="go-home mb-3">
+            <div class="link-back mb-3">
                 <a href="/admin/manage/orders">Danh Sách Đơn Hàng</a>
                 <span>>></span>
                 <p>Chi Tiết Đơn Hàng</p>
@@ -66,4 +66,5 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @endsection

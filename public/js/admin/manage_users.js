@@ -1,60 +1,4 @@
 $(document).ready(function() {
-    function loadUsers(request,currentPage) {
-        $.ajax({
-            url: '/admin/manage/users/' + request,
-            method: 'GET',
-            data: {
-                page : currentPage
-            },
-            success: function(response) {
-                if (response.message === 'Thành công') {
-                    $('tbody').html('');
-
-                    $.each(response.data,function(index,user) {
-                        $('tbody').append(
-                            '<tr>' +
-                            '<td>' + user.username + '</td>' +
-                            '<td>' + user.email + '</td>' +
-                            '<td>' + user.role + '</td>' +
-                            '<td>' + formatDate(user.created_at) + '</td>' +
-                            '<td>' + formatDate(user.updated_at) + '</td>' +
-                            '<td>' +
-                            '<div class="option">' +
-                            '<button class="btn btn-info btn-sm btn-edit" data-id="' + user.id + '" data-toggle="modal" data-target="#editUserModal"><i class="fas fa-edit"></i></button>' +
-                            '<button class="btn btn-danger btn-sm btn-delete" data-id="' + user.id + '"><i class="fas fa-trash-alt"></i></button>' +
-                            '</div>' +
-                            '</td>' +
-                            '</tr>'
-                        );
-                    });
-                    if (request === 'prev-users') {
-                        currentPage--;
-                    } else {
-                        currentPage++;
-                    }
-                    $('#page-numbers').val(currentPage);
-                } else {
-                    alert(response.message);
-                }
-            }
-        });
-    }
-
-
-    $('.prev-users').click(function() {
-        event.preventDefault();
-        let currentPage = $('#page-numbers').val();
-        if (currentPage > 1) {
-            loadUsers('prev-users',currentPage);
-        }
-    })
-
-    $('.next-users').click(function() {
-        event.preventDefault();
-        let currentPage = $('#page-numbers').val();
-        loadUsers('next-users',currentPage);
-    })
-
     $('.btn-add-user').click(function(){
         $('#addUserModal').modal('show');
     });
@@ -70,8 +14,11 @@ $(document).ready(function() {
                     $('#addUserModal').modal('hide');
                     $('.modal-backdrop').remove();
                     alert('Tài khoản đã được thêm thành công!');
-                    let currentPage = $('#page-numbers').val();
-                    loadUsers('next-users',currentPage-1);
+                    if (currentPage) {
+                        window.location.href = '/admin/manage/users?page='+ currentPage;
+                    } else {
+                        window.location.href = '/admin/manage/users';
+                    }
                 }
             },
             error: function(xhr){
@@ -111,7 +58,6 @@ $(document).ready(function() {
     $('#editUserForm').on('submit', function(e) {
         e.preventDefault();
         let formData = $(this).serialize();
-        console.log(formData);
 
         $.ajax({
             url: '/admin/manage/users/update' ,
@@ -122,8 +68,13 @@ $(document).ready(function() {
                     $('#editUserModal').modal('hide');
                     $('.modal-backdrop').remove();
                     alert('Thông tin đã được cập nhật');
-                    let currentPage = $('#page-numbers').val();
-                    loadUsers('next-users',currentPage-1);
+                    let currentUrl = window.location.href;
+                    let currentPage = currentUrl.split('page=')[1];
+                    if (currentPage) {
+                        window.location.href = '/admin/manage/users?page='+ currentPage;
+                    } else {
+                        window.location.href = '/admin/manage/users';
+                    }
                 } else {
                     alert(response.message);
                 }
@@ -157,8 +108,11 @@ $(document).ready(function() {
                     if (response.message === 'Xóa tài khoản thành công') {
                         row.remove();
                         alert(response.message);
-                        let currentPage = $('#page-numbers').val();
-                        loadUsers('next-users',currentPage-1);
+                        if (currentPage) {
+                            window.location.href = '/admin/manage/users?page='+ currentPage;
+                        } else {
+                            window.location.href = '/admin/manage/users';
+                        }
                     } else {
                         alert(response.message);
                     }

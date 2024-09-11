@@ -7,7 +7,7 @@ use App\Models\News;
 
 class AdminRepository extends BaseRepository
 {
-    const NUMBER_USER_PER_PAGE = 4;
+    const NUMBER_USER_PER_PAGE = 12;
 
     public function __construct(Admins $admin)
     {
@@ -16,35 +16,10 @@ class AdminRepository extends BaseRepository
 
     public function getAllUsers()
     {
-        $users = Users::active()->take(self::NUMBER_USER_PER_PAGE)->get();
+        $users = Users::active()->paginate(self::NUMBER_USER_PER_PAGE);
         return $users;
     }
 
-    public function getNextUsers($page)
-    {
-        $perPage = self::NUMBER_USER_PER_PAGE;
-        $offset = $page  * $perPage;
-
-        $users = Users::active()
-            ->offset($offset)
-            ->limit($perPage)
-            ->get();
-
-        return $users;
-    }
-
-    public function getPrevUsers($page)
-    {
-        $perPage = self::NUMBER_USER_PER_PAGE;
-        $offset = ($page - 2)  * $perPage;
-
-        $users = Users::active()
-            ->offset($offset)
-            ->limit($perPage)
-            ->get();
-
-        return $users;
-    }
 
     public function createUser($validatedData)
     {
@@ -62,7 +37,6 @@ class AdminRepository extends BaseRepository
     {
         $user = Users::find($id);
         $user->update(['username' => $data->username,
-            'email' => $data->email,
             'phone' => $data->phone,
             ]);
         return $user;

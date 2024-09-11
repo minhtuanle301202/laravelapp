@@ -15,7 +15,7 @@ $(document).ready(function () {
                     if (!response.message) {
                         currentPage++;
                         data = `<img  src="${response.image}" alt="Tin tức">
-            <div class="news-title" data-news-id="${response.id}"><a href="#">${response.title}</a></div>
+            <div class="news-title" data-news-id="${response.id}"><a href="/news/news-details/${response.id}">${response.title}</a></div>
             <div class="posted-time">${response.published_date}</div>
             <div class="justify">
                 ${response.content}
@@ -41,13 +41,14 @@ $(document).ready(function () {
                     newsId: newsId,
                 },
                 success: function(response) {
-
                     currentPage--;
+                    let content = response.content;
+                    let truncatedContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
                     data = `<img  src="${response.image}" alt="Tin tức">
-            <div class="news-title" data-news-id="${response.id}"><a href="#">${response.title}</a></div>
-            <div class="posted-time">${response.published_date}</div>
+            <div class="news-title" data-news-id="${response.id}"><a href="/news/news-details/${response.id}">${response.title}</a></div>
+            <div class="posted-time">${response.published_datez}</div>
             <div class="justify">
-                ${response.content}
+                 ${truncatedContent}
             </div>
             <input type="hidden" id="page-number" value="${currentPage}">`;
                     $('#news-sidebar-content').html(data);

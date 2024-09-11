@@ -35,16 +35,25 @@ td > .img-fluid {
     justify-content: space-between;
     align-items: center;
 }
-.go-home a{
+.link-back a{
     color: #343a40;
+    text-decoration: none;
 }
-.go-home a:hover {
+.link-back a:hover {
     color: #77ca64;
     text-decoration: none;
 }
-.go-home p {
+.link-back p {
     color: #77ca64;
     display: inline-block;
+}
+
+.variant-list h3 {
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 22px;
 }
 
 .btn-add-product {
@@ -67,7 +76,7 @@ td > .img-fluid {
     justify-content: flex-start;
     position: absolute;
     top:750px;
-    left:25px;
+    left:135px;
 }
 
 .pagination-products button {
@@ -122,8 +131,8 @@ td > .img-fluid {
     align-items: center;
     justify-content: flex-start;
     position: absolute;
-    top:650px;
-    left:25px;
+    top:680px;
+    left:125px;
 }
 
 .pagination-variants button {
@@ -167,4 +176,33 @@ td > .img-fluid {
 body {
     padding:0 !important;
     margin:0 !important;
+}
+
+.red-dot {
+    color: #ff3939;
+}
+
+#category_id {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    background-image: url('https://www.svgrepo.com/show/173673/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 10px;
+}
+
+#edit_category_id {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    background-image: url('https://www.svgrepo.com/show/173673/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 10px;
+
 }

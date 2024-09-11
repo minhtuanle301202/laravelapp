@@ -51,19 +51,19 @@
                     <form id="addProductForm">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Tên sản phẩm <span>*</span></label>
+                            <label for="name">Tên sản phẩm <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="description">Mô tả <span>*</span></label>
+                            <label for="description">Mô tả <span class="red-dot">*</span></label>
                             <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="image">Link ảnh <span>*</span></label>
+                            <label for="image">Link ảnh <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="image" name="image" required>
                         </div>
                         <div class="form-group">
-                            <label for="category_id">Loại sản phẩm</label>
+                            <label for="category_id">Loại sản phẩm <span class="red-dot">*</span></label>
                             <select class="form-control" id="category_id" name="category_id" required>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -89,25 +89,18 @@
                         @csrf
                         <input type="hidden" id="edit_product_id" name="id">
                         <div class="form-group">
-                            <label for="edit_name">Tên sản phẩm <span>*</span></label>
+                            <label for="edit_name">Tên sản phẩm <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="edit_name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="edit_description">Mô tả <span>*</span></label>
+                            <label for="edit_description">Mô tả <span class="red-dot">*</span></label>
                             <textarea class="form-control" id="edit_description" name="description" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="edit_image">Link ảnh <span>*</span></label>
+                            <label for="edit_image">Link ảnh <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="edit_image" name="image" required>
                         </div>
-                        <div class="form-group">
-                            <label for="edit_category_id">Loại sản phẩm</label>
-                            <select class="form-control" id="edit_category_id" name="category_id" required>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <input type="hidden" class="edit-category_id" id="edit_category_id" name="category_id">
                         <button type="submit" class="btn btn-primary">Cập Nhật</button>
                     </form>
                 </div>

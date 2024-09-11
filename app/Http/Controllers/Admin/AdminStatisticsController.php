@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class AdminStatisticsController extends Controller
 {
+    const NUMBER_ORDER_PER_PAGE = 3;
     protected OrderService $orderService;
 
     public function __construct(OrderService $orderService)
@@ -25,6 +26,8 @@ class AdminStatisticsController extends Controller
 
         $bestSellerProducts = $this->orderService->showBestSeller();
 
+        $topProducts = $this->orderService->showTopProducts();
+
         return view('pages-admin.manage_statistics', [
             'months' => $data['months'],
             'orderCounts' => $data['orderCounts'],
@@ -32,10 +35,47 @@ class AdminStatisticsController extends Controller
             'years' => $years,
             'selectedYear' => $selectedYear,
             'topRevenueProducts' => $topRevenueProducts,
-            'bestSellerProducts' => $bestSellerProducts
+            'bestSellerProducts' => $bestSellerProducts,
+            'topProducts' => $topProducts
         ]);
     }
 
+    public function handleSearchTopProducts(Request $request)
+    {
+        $topProducts = $this->orderService->searchTopProducts($request,self::NUMBER_ORDER_PER_PAGE);
+        if ($topProducts->isEmpty()) {
+            return jsonResponse(false, 'Không tìm thấy kết quả');
+        } else {
+            $html = view('layouts.partials-admin.statistics_table', compact('topProducts'))->render();
+            return jsonResponse(true, 'Thành công', ['topProducts' => $html]);
+        }
+    }
+
+    public function handleGetPrevTopProducts(Request $request)
+    {
+        $page = $request->page;
+        $topProducts = $this->orderService->getPrevTopProducts($request, $page, self::NUMBER_ORDER_PER_PAGE);
+
+        if ($topProducts->isEmpty()) {
+            return jsonResponse(false, 'Không còn dữ liệu');
+        } else {
+            $html = view('layouts.partials-admin.statistics_table', compact('topProducts'))->render();
+            return jsonResponse(true, 'Thành công', ['topProducts' => $html]);
+        }
+    }
+
+    public function handleGetNextTopProducts(Request $request)
+    {
+        $page = $request->page;
+        $topProducts = $this->orderService->getNextTopProducts($request, $page, self::NUMBER_ORDER_PER_PAGE);
+
+        if ($topProducts->isEmpty()) {
+            return jsonResponse(false, 'Không còn dữ liệu');
+        } else {
+            $html = view('layouts.partials-admin.statistics_table', compact('topProducts'))->render();
+            return jsonResponse(true, 'Thành công', ['topProducts' => $html]);
+        }
+    }
 }
 
 ?>

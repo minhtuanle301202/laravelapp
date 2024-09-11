@@ -5,7 +5,7 @@
     <div class="go-home">
         <a href="{{ route('home') }}">Trang chủ</a>
         <span>>></span>
-        <a href="#">Điện thoại di động</a>
+        <a href="{{ route('category',$product->category->id) }}">{{ $product->category->name }}</a>
         <span>>></span>
         <p>{{ $product->name }}</p>
     </div>
@@ -13,7 +13,9 @@
         <div class="header-product-detail-container">
             <div class="product-image col-12 col-sm-4">
                 <img src="{{ $product->image }}" alt="Image">
-                <span class="is-loved"></span>
+                <div class="remain-quantity">
+                    Số lượng còn lại: <span class="remain-quantity-count">{{ $remainQuantity }}</span>
+                </div>
             </div>
             <div class="product-detail col-12 col-sm-8">
                 <div class="product-name" data-product-id="{{ $product->id }}">{{ $product->name }}</div>
@@ -78,9 +80,8 @@
         </div>
     </div>
 
-    <div id="cart-alert" class="cart_alert">
+    <div id="cart-alert" class="alert alert-success col-4" role="alert">
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('js/product_details.js') }}"></script>

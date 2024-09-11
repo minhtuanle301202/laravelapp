@@ -23,28 +23,6 @@ class AdminNewsController extends Controller
         return view('pages-admin.manage_news', compact('news'));
     }
 
-    public function handleGetNextNews(Request $request)
-    {
-        $page = $request->page;
-        $news = $this->newsService->getNextNews($page,self::NUMBER_NEWS_PER_PAGE);
-        if ($news->isEmpty()) {
-            return jsonResponse(false, 'Không còn dữ liệu');
-        } else {
-            return jsonResponse(true, 'Thành công', $news);
-        }
-    }
-
-    public function handleGetPreviousNews(Request $request)
-    {
-        $page = $request->page;
-        $news = $this->newsService->getPrevNews($page,self::NUMBER_NEWS_PER_PAGE);
-        if ($news->isEmpty()) {
-            return jsonResponse(false, 'Không còn dữ liệu');
-        } else {
-            return jsonResponse(true, 'Thành công', $news);
-        }
-    }
-
     public function handleCreateNews(Request $request)
     {
         $data = $request->only('title','content','image','published_date');

@@ -66,11 +66,19 @@
             </div>
             <div class="cart">
                 @auth
-                <span class="icon">
-                    <a href="{{ route('cart.show') }}"><i class="fa-solid fa-cart-shopping"></i></a>
-                </span>
-                <span class="cart-count">0</span>
-                <span class="cart-text">Sản phẩm</span>
+                    @if ($cart === null)
+                        <span class="icon">
+                            <a href="{{ route('cart.show') }}"><i class="fa-solid fa-cart-shopping"></i></a>
+                        </span>
+                        <span class="cart-count">0</span>
+                        <span class="cart-text">Sản phẩm</span>
+                    @else
+                        <span class="icon">
+                            <a href="{{ route('cart.show') }}"><i class="fa-solid fa-cart-shopping"></i></a>
+                        </span>
+                        <span class="cart-count">{{ $cart->quantity }}</span>
+                        <span class="cart-text">Sản phẩm</span>
+                    @endif
                 @endauth
 
                 @guest

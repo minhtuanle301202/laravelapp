@@ -23,6 +23,15 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('statusCollection', $statusCollection);
         });
+
+        View::composer('*',function($view) {
+            if (Auth::check()) {
+                $cart = Carts::where('user_id', Auth::user()->id)->first();
+                    $view->with('cart', $cart);
+            } else  {
+                    $view->with('cart', null);
+            }
+        });
     }
 }
 ?>

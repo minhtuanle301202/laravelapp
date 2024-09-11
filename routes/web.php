@@ -70,17 +70,17 @@ Route::prefix('user')->middleware(['auth'])->group( function() {
         Route::post('place-an-order',[CartController::class, 'placeAnOrder'])->name('cart.placeAnOrder');
     });
 });
+Route::middleware('guest:admin')->group(function () {
+    Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('admin/login-process', [AdminController::class, 'handleLoginAdmin'])->name('admin.login.process');
+});
 
-Route::get('admin/login',[AdminController::class,'showLoginForm'])->name('admin.login');
-Route::post('admin/login-process',[AdminController::class,'handleLoginAdmin'])->name('admin.login.process');
-Route::post('admin/logout',[AdminController::class,'handleLogoutAdmin'])->name('admin.logout');
+Route::post('admin/logout', [AdminController::class, 'handleLogoutAdmin'])->name('admin.logout');
 
 Route::prefix('admin')->middleware(['auth:admin'])->group( function() {
     Route::prefix('manage')->group(function () {
         Route::prefix('users')->group(function () {
             Route::get('', [AdminController::class, 'showManageUsersPage'])->name('admin.manage.users');
-            Route::get('prev-users', [AdminController::class, 'handleGetPreviousUsers'])->name('admin.manage.users.prev');
-            Route::get('next-users', [AdminController::class, 'handleGetNextUsers'])->name('admin.manage.users.next');
             Route::post('create', [AdminController::class, 'handleCreateUser'])->name('admin.manage.users.create');
             Route::get('get-info', [AdminController::class, 'showUserDetails'])->name('admin.manage.users.get-info');
             Route::post('update', [AdminController::class, 'updateUserDetails'])->name('admin.manage.users.update');
@@ -89,8 +89,6 @@ Route::prefix('admin')->middleware(['auth:admin'])->group( function() {
 
         Route::prefix('news')->group(function () {
             Route::get('', [AdminNewsController::class, 'showManageNewsPage'])->name('admin.manage.news');
-            Route::get('prev-news', [AdminNewsController::class, 'handleGetPreviousNews'])->name('admin.manage.news.prev');
-            Route::get('next-news', [AdminNewsController::class, 'handleGetNextNews'])->name('admin.manage.news.next');
             Route::post('create', [AdminNewsController::class, 'handleCreateNews'])->name('admin.manage.news.create');
             Route::get('get-info', [AdminNewsController::class, 'showNewsDetails'])->name('admin.manage.news.get-info');
             Route::post('update', [AdminNewsController::class, 'updateNewsDetails'])->name('admin.manage.news.update');
@@ -131,6 +129,9 @@ Route::prefix('admin')->middleware(['auth:admin'])->group( function() {
 
         Route::prefix('statistics')->group(function () {
             Route::get('chart',[AdminStatisticsController::class,'showChart'])->name('admin.manage.show-chart');
+            Route::get('search-top-products',[AdminStatisticsController::class,'handleSearchTopProducts'])->name('admin.manage.top-products.search');
+            Route::get('prev-top-products',[AdminStatisticsController::class,'handleGetPrevTopProducts'])->name('admin.manage.prev-top-products.search');
+            Route::get('next-top-products',[AdminStatisticsController::class,'handleGetNextTopProducts'])->name('admin.manage.next-top-products.search');
         });
     });
 });

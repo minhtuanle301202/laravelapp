@@ -48,7 +48,7 @@ class  OrderService
 
     public function updateOrder($id,$data)
     {
-        if ($data['status'] == 'Giao hàng thành công') {
+        if ($data['status'] === 'Đã hủy') {
             $this->orderRepository->updateProductQuantity($id);
         }
 
@@ -93,8 +93,31 @@ class  OrderService
 
     public function showBestSeller()
     {
-        return $this->orderRepository->getBestSeller();
+        return $this->orderRepository->getBestSeller(5);
     }
 
+    public function showTopProducts()
+    {
+        return $this->orderRepository->getBestSeller(3);
+    }
+
+    public function searchTopProducts($data,$perPage)
+    {
+        return $this->orderRepository->searchTopProducts($data,$perPage);
+    }
+
+    public function getPrevTopProducts($data, $page, $perPage)
+    {
+        $offset = ($page - 2) * $perPage;
+        $topProducts = $this->orderRepository->getTopProductsInPagination($offset,$perPage,$data);
+        return $topProducts;
+    }
+
+    public function getNextTopProducts($data, $page, $perPage)
+    {
+        $offset = $page * $perPage;
+        $topProducts = $this->orderRepository->getTopProductsInPagination($offset,$perPage,$data);
+        return $topProducts;
+    }
 }
 ?>

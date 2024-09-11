@@ -17,7 +17,6 @@ class EditOrderRequest extends FormRequest
             'username' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'order_date' => 'required|before_or_equal:today',
-
         ];
     }
 

@@ -1,18 +1,17 @@
 @extends('layouts.admin.master')
 @section('title', 'Danh Sách Biến Thể Sản Phẩm')
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/pages-admin/manage_products.css') }}">
     @include('layouts.partials-admin.sidebar')
     <div class="main-content col-10">
         <div class="container">
-            <div class="go-home ml-3 mb-3">
+            <div class="link-back ml-3 mb-3">
                 <a href="/admin/manage/products">Danh Sách Sản Phẩm</a>
                 <span>>></span>
                 <p>{{ $product->name }}</p>
                 <input type="hidden" id="TypeVariants" value="{{ $product->id }}">
             </div>
-            <div class="top-container ml-3 mr-3 mb-3">
-                <h2>Danh Sách Biến Thể Sản Phẩm</h2>
+            <div class="top-container variant-list ml-3 mr-3 mb-3">
+                <h3>Danh Sách Biến Thể Sản Phẩm</h3>
                 <button class="btn-add-variant" data-toggle="modal" data-target="#addVariantModal">Thêm Biến Thể</button>
             </div>
             <div id="variants-content">
@@ -42,19 +41,19 @@
                         @csrf
                         <input type="hidden" id="product_id" name="product_id" value="{{ $product->id }}">
                         <div class="form-group">
-                            <label for="capacity">Dung Lượng <span>*</span></label>
+                            <label for="capacity">Dung Lượng <span class="red-dot">*</span></label>
                             <input type="number" class="form-control" id="capacity" name="capacity" required>
                         </div>
                         <div class="form-group">
-                            <label for="color">Màu Sắc <span>*</span></label>
+                            <label for="color">Màu Sắc <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="color" name="color" required>
                         </div>
                         <div class="form-group">
-                            <label for="price">Giá <span>*</span></label>
+                            <label for="price">Giá <span class="red-dot">*</span></label>
                             <input type="number" class="form-control" id="price" name="price" required>
                         </div>
                         <div class="form-group">
-                            <label for="remain_quantity">Số Lượng Còn Lại <span>*</span></label>
+                            <label for="remain_quantity">Số Lượng Còn Lại <span class="red-dot">*</span></label>
                             <input type="number" class="form-control" id="remain_quantity" name="remain_quantity" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Lưu</button>
@@ -76,19 +75,19 @@
                         <input type="hidden" id="edit_variant_id" name="id">
                         <input type="hidden" id="product_id" name="product_id" value="{{ $product->id }}">
                         <div class="form-group">
-                            <label for="edit_capacity">Dung Lượng</label>
+                            <label for="edit_capacity">Dung Lượng <span class="red-dot">*</span></label>
                             <input type="number" class="form-control" id="edit_capacity" name="capacity" required>
                         </div>
                         <div class="form-group">
-                            <label for="edit_color">Màu Sắc</label>
+                            <label for="edit_color">Màu Sắc <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="edit_color" name="color" required>
                         </div>
                         <div class="form-group">
-                            <label for="edit_price">Giá</label>
+                            <label for="edit_price">Giá <span class="red-dot">*</span></label>
                             <input type="number" class="form-control" id="edit_price" name="price" required>
                         </div>
                         <div class="form-group">
-                            <label for="edit_remain_quantity">Số Lượng Còn Lại</label>
+                            <label for="edit_remain_quantity">Số Lượng Còn Lại <span class="red-dot">*</span></label>
                             <input type="number" class="form-control" id="edit_remain_quantity" name="remain_quantity" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Cập Nhật</button>

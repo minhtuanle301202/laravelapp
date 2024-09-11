@@ -62,7 +62,7 @@ class ProductRepository extends BaseRepository
         $query = Products::query();
 
         if (!empty($productName)) {
-            $query->whereRaw('? like CONCAT("%", name, "%")', [$productName]);
+            $query->where('name', 'LIKE', '%' . $productName . '%');
         }
 
         if (!empty($categoryId)) {
@@ -93,5 +93,45 @@ class ProductRepository extends BaseRepository
         return $products;
     }
 
+    public function createProduct($data)
+    {
+        $duplicate = Products::where('name',$data['name'])
+            ->where('category_id',$data['category_id'])
+            ->exists();
+
+        if ($duplicate) {
+            return [
+                'success' => false,
+                'error' => 'Sản phẩm này đã tồn tại rồi'
+            ];
+        } else {
+           $this->create($data);
+            return [
+                'success' => true,
+                'error' => ''
+            ];
+        }
+    }
+
+    public function updateProductDetails($id,$data)
+    {
+        $duplicate = Products::where('name',$data['name'])
+            ->where('category_id',$data['category_id'])
+            ->where('id','!=',$id)
+            ->exists();
+
+        if ($duplicate) {
+            return [
+                'success' => false,
+                'error' => 'Sản phẩm này đã tồn tại rồi'
+            ];
+        } else {
+            $this->update($id,$data);
+            return [
+                'success' => true,
+                'error' => ''
+            ];
+        }
+    }
 }
 ?>

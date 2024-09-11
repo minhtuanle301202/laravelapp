@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\EditProductRequest;
 
 class AdminProductController extends Controller
 {
@@ -72,16 +73,16 @@ class AdminProductController extends Controller
         }
     }
 
-    public function updateProductDetails(ProductRequest $request)
+    public function updateProductDetails(EditProductRequest $request)
     {
         $productId = $request->id;
         $data = $request->only('name','description','image','category_id');
-        $product = $this->productService->updateProductDetails($productId,$data);
+        $result = $this->productService->updateProductDetails($productId,$data);
 
-        if ($product) {
+        if ($result['success']) {
             return response()->json(['message' => 'Cập nhật thông tin sản phẩm thành công']);
         } else {
-            return response()->json(['message' => 'Cập nhật thông tin sản phẩm thất bại']);
+            return jsonResponse(false, $result['error'], null, 422);
         }
     }
 
@@ -100,11 +101,11 @@ class AdminProductController extends Controller
     public function handleCreateProduct(ProductRequest $request)
     {
         $data = $request->only('name','description','image','category_id');
-        $product = $this->productService->createProduct($data);
-        if ($product) {
+        $result = $this->productService->createProduct($data);
+        if ($result['success']) {
             return jsonResponse(true, 'Thêm sản phẩm thành công');
         } else {
-            return jsonResponse(false, 'Thêm sản phẩm thất bại');
+            return jsonResponse(false, $result['error'], null, 422);
         }
     }
 }

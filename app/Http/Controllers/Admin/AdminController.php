@@ -47,27 +47,6 @@ class AdminController extends Controller
         return redirect()->route('admin.login');
     }
 
-    public function handleGetNextUsers(Request $request)
-    {
-        $page = $request->page;
-        $users = $this->adminService->getNextUsers($page);
-        if ($users->isEmpty()) {
-            return jsonResponse(false, 'Không còn dữ liệu');
-        } else {
-            return jsonResponse(true, 'Thành công', $users);
-        }
-    }
-
-    public function handleGetPreviousUsers(Request $request)
-    {
-        $page = $request->page;
-        $users = $this->adminService->getPrevUsers($page);
-        if ($users->isEmpty()) {
-            return jsonResponse(false, 'Không còn dữ liệu');
-        } else {
-            return jsonResponse(true, 'Thành công', $users);
-        }
-    }
 
     public function handleCreateUser(UserRegisterRequest $request)
     {

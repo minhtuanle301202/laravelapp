@@ -13,10 +13,10 @@
     <div class="line col-12 mb-2"></div>
     <div class="middle-news-sidebar" id="news-sidebar-content">
             <img  src="{{ $news->image }}" alt="Tin tức">
-            <div class="news-title" data-news-id="{{ $news->id }}"><a href="#">{{ $news->title }}</a></div>
+            <div class="news-title" data-news-id="{{ $news->id }}"><a href="{{  route('news.news-details',$news->id) }}">{{ $news->title }}</a></div>
             <div class="posted-time">{{ \Carbon\Carbon::parse($news->published_date)->format('d/m/Y') }}</div>
             <div class="justify">
-                {{ Str::limit($news->content, 150) }}
+                {{ Str::limit($news->content, 100) }}
             </div>
             <input type="hidden"  id="page-number" value="1">
     </div>

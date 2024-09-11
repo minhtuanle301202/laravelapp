@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    function updatePrice(quantity,id) {
+    function updatePrice(quantity,updateType) {
         var selectedColor = $('.color-button.active').data('color');
         var selectedStorage = $('.storage-button.active').data('storage');
         var productId = $('.product-name').data('product-id');
@@ -29,7 +29,8 @@ $(document).ready(function() {
                 finalPriceInput.val(finalPrice);
                 variantId.val(response.id);
                 variantPrice.val(parseInt(response.price));
-                if (id === 1) {
+                $('.remain-quantity-count').text(response.remain_quantity);
+                if (updateType === 1) {
                     $('#product-price').text(finalPrice.toLocaleString('vi-VN') + ' VND');
                 }
             }
@@ -80,12 +81,11 @@ $(document).ready(function() {
     $('.now-quantity').on('input', function() {
         var quantity = $(this).val();
 
-        // Đảm bảo giá trị nhập vào là số và lớn hơn hoặc bằng 1
         if ($.isNumeric(quantity) && quantity >= 1) {
             $(this).val(quantity);
                 updatePrice(quantity,2);
         } else {
-            // Nếu giá trị không hợp lệ, reset về giá trị mặc định
+
             $(this).val(1);
         }
     });
@@ -110,8 +110,10 @@ $(document).ready(function() {
                 quantity: quantity,
             },
             success: function(response) {
+                $('#cart-alert').show();
                 $('#cart-alert').text(response.message);
-                // $('.cart-count').text(response.quantity);
+                $('.cart-count').text(response.quantity);
+
             },
             error: function(xhr, status, error) {
                 alert("Error");

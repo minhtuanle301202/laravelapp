@@ -6,7 +6,7 @@
         <div class="breadcrumb">
             <a class="home" href="{{ route('home') }}">Trang chủ</a>
             <span>>></span>
-            <a href="{{ route('cart.show') }}" class="cart-link">Giỏ hàng</a>
+            <a href="{{ route('cart.show') }}" class="cart-payment-link">Giỏ hàng</a>
             <span>>></span>
             <a href="#" class="payment-link">Thanh toán</a>
         </div>

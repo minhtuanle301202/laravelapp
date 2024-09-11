@@ -40,14 +40,9 @@
                     </tbody>
                 </table>
             </div>
-            <input type="hidden" name="page-numbers"  id="page-numbers" value="1">
+
             <div class="pagination-users">
-                <button id="prev-users" class="prev-users">
-                    << Previous
-                </button>
-                <button id="next-users" class="next-users">
-                    Next >>
-                </button>
+               {{ $users->links() }}
             </div>
         </div>
     </div>
@@ -64,19 +59,19 @@
                     <form id="addUserForm">
                         @csrf
                         <div class="form-group">
-                            <label for="username">Username <span>*</span></label>
+                            <label for="username">Username <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="username" name="username" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email <span>*</span></label>
+                            <label for="email">Email <span class="red-dot">*</span></label>
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="phone" >Số điện thoại <span>*</span></label>
+                            <label for="phone" >Số điện thoại <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="phone" name="phone" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password <span>*</span></label>
+                            <label for="password">Password <span class="red-dot">*</span></label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <button type="submit" class="btn btn-primary" >Lưu</button>
@@ -102,11 +97,7 @@
                             <input type="text" class="form-control" id="editUsername" name="username" required>
                         </div>
                         <div class="form-group">
-                            <label for="edit_email">Email</label>
-                            <input type="email" class="form-control" id="editEmail" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone" >Số điện thoại <span>*</span></label>
+                            <label for="phone" >Số điện thoại </label>
                             <input type="text" class="form-control" id="editPhone" name="phone" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Cập Nhật</button>

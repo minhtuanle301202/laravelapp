@@ -38,6 +38,10 @@
     text-decoration: none;
 }
 
+.news-content {
+    word-break: break-all;
+}
+
 .news-container {
     padding: 0;
     margin-bottom: 50px;
