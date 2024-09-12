@@ -1,5 +1,5 @@
 <div class="tab-pane fade" id="top-revenue" role="tabpanel" aria-labelledby="top-revenue-tab">
-    <h3 class="ml-3">Sản phẩm doanh thu tốt</h3>
+    <h3 class="ml-3">Sản phẩm doanh thu tốt nhất</h3>
     <table class="table table-bordered">
         <thead>
         <tr>

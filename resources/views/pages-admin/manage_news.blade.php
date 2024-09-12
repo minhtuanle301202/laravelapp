@@ -22,7 +22,7 @@
                     <tbody>
                     @foreach ($news as $newsItem)
                         <tr>
-                            <td><img src="{{ $newsItem->image }}" alt="Image" width="100"></td>
+                            <td class="td-img"><img class="news-image" src="{{ $newsItem->image }}" alt="Image" ></td>
                             <td>{{ $newsItem->title }}</td>
                             <td>{{ \Carbon\Carbon::parse($newsItem->published_date)->format('d/m/Y') }}</td>
                             <td>
@@ -38,14 +38,8 @@
                 </table>
 
             </div>
-            <input type="hidden" name="page-numbers"  id="page-numbers" value="1">
             <div class="pagination-news">
-                <button id="prev-news" class="prev-news">
-                    << Previous
-                </button>
-                <button id="next-news" class="next-news">
-                    Next >>
-                </button>
+               {{ $news->links() }}
             </div>
         </div>
     </div>
@@ -60,19 +54,19 @@
                     <form id="addNewsForm">
                         @csrf
                         <div class="form-group">
-                            <label for="title">Tiêu Đề <span>*</span></label>
+                            <label for="title">Tiêu Đề <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="title" name="title" required>
                         </div>
                         <div class="form-group">
-                            <label for="content">Nội Dung <span>*</span></label>
+                            <label for="content">Nội Dung <span class="red-dot">*</span></label>
                             <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="published_date">Ngày Đăng Tin <span>*</span></label>
+                            <label for="published_date">Ngày Đăng Tin <span class="red-dot">*</span></label>
                             <input type="date" class="form-control" id="published_date" name="published_date" required>
                         </div>
                         <div class="form-group">
-                            <label for="image">Link ảnh <span>*</span></label>
+                            <label for="image">Link ảnh <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="image" name="image" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Lưu</button>
@@ -93,19 +87,19 @@
                         @csrf
                         <input type="hidden" id="editNewsId" name="newsId">
                         <div class="form-group">
-                            <label for="edit_title">Tiêu Đề</label>
+                            <label for="edit_title">Tiêu Đề <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="edit_title" name="title" required>
                         </div>
                         <div class="form-group">
-                            <label for="edit_content">Nội Dung</label>
+                            <label for="edit_content">Nội Dung <span class="red-dot">*</span></label>
                             <textarea class="form-control" id="edit_content" name="content" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="edit_published_date">Ngày Đăng Tin</label>
+                            <label for="edit_published_date">Ngày Đăng Tin <span class="red-dot">*</span></label>
                             <input type="date" class="form-control" id="edit_published_date" name="published_date" required>
                         </div>
                         <div class="form-group">
-                            <label for="edit_image">Link Ảnh</label>
+                            <label for="edit_image">Link Ảnh <span class="red-dot">*</span></label>
                             <input type="text" class="form-control" id="edit_image" name="image" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Cập Nhật</button>

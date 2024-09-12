@@ -75,7 +75,7 @@ class ProductService
 
     public function updateProductDetails($id,$data)
     {
-        $product = $this->productRepository->update($id,$data);
+        $product = $this->productRepository->updateProductDetails($id,$data);
 
         return $product;
     }
@@ -89,7 +89,7 @@ class ProductService
 
     public function createProduct($data)
     {
-        $product = $this->productRepository->create($data);
+        $product = $this->productRepository->createProduct($data);
 
         return $product;
     }

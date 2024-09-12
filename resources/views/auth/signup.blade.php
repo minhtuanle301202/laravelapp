@@ -26,8 +26,8 @@
                         <form method="post" action="{{ route('register.process') }}" id="customer_register" accept-charset="UTF-8">
                             @csrf
                             <fieldset class="form-group">
-                                <label>Họ và tên<span class="required">*</span></label>
-                                <input type="text" class="form-control form-control-lg" value="" name="username" id="username" placeholder="Họ và tên" required>
+                                <label>Tên người dùng<span class="required">*</span></label>
+                                <input type="text" class="form-control form-control-lg" value="" name="username" id="username" placeholder="Tên người dùng" required>
                             </fieldset>
                             <fieldset class="form-group">
                                 <label>Số điện thoại <span class="required">*</span></label>

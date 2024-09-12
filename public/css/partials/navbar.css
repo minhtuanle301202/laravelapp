@@ -20,7 +20,7 @@
     padding: 10px 20px;
     display: block;
 }
-.navbar-item.active a,
+.navbar-item.active ,
 .navbar-item a:hover {
     background-color: #77ca64;
 }
@@ -48,6 +48,15 @@
 .navbar-item.dropdown:hover .dropdown-menu {
     display: block;
 }
+
+.dropdown-menu .active{
+    background-color: #77ca64;
+}
+
+.dropdown-menu .active a {
+    color: white;
+}
+
 .navbar-toggler {
     cursor: pointer;
     border: none;

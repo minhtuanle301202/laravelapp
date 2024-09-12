@@ -37,8 +37,9 @@ class ProductController extends Controller
         $variants = $product->variants;
         $firstVariants = $variants->first();
         $initialPrice = $firstVariants->price;
+        $remainQuantity = $firstVariants->remain_quantity;
 
-        return view('pages.product_details',compact('product','variants','initialPrice'));
+        return view('pages.product_details',compact('product','variants','remainQuantity','initialPrice'));
     }
 
     public function getProductsByCategoryIdInCategoryPage($id)

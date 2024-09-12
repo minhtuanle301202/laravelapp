@@ -195,7 +195,10 @@
     box-shadow: none ;
 }
 
-
+.cart-button a {
+    text-decoration: none;
+    color: white;
+}
 
 .cart-empty-message {
     text-align:center;

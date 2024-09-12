@@ -1,59 +1,10 @@
 $(document).ready(function() {
-    function loadNews(request,currentPage) {
-        $.ajax({
-            url: '/admin/manage/news/' + request,
-            method: 'GET',
-            data: {
-                page : currentPage
-            },
-            success: function(response) {
-                if (response.message === 'Thành công') {
-                    $('tbody').html('');
-                    $.each(response.data,function(index,newsItem) {
-                        $('tbody').append(
-                            '<tr>' +
-                            '<td><img src="' + newsItem.image + '" alt="Image" width="100"></td>' +
-                            '<td>' + newsItem.title + '</td>' +
-                            '<td>' + formatDate(newsItem.published_date) + '</td>' +
-                            '<td>' +
-                            '<div class="option">' +
-                            '<button class="btn btn-info btn-sm btn-edit" data-id="' + newsItem.id + '" data-toggle="modal" data-target="#editNewsModal"><i class="fas fa-edit"></i></button>' +
-                            '<button class="btn btn-danger btn-sm btn-delete" data-id="' + newsItem.id + '"><i class="fas fa-trash-alt"></i></button>' +
-                            '</div>' +
-                            '</td>' +
-                            '</tr>'
-                        );
-                    });
-                    if (request === 'prev-news') {
-                        currentPage--;
-                    } else {
-                        currentPage++;
-                    }
-                    $('#page-numbers').val(currentPage);
-                } else  {
-                    alert(response.message);
-                }
-            }
-        });
-    }
-
-
-    $('.prev-news').click(function() {
-        event.preventDefault();
-        let currentPage = $('#page-numbers').val();
-        if (currentPage > 1) {
-            loadNews('prev-news',currentPage);
-        }
-    })
-
-    $('.next-news').click(function() {
-        event.preventDefault();
-        let currentPage = $('#page-numbers').val();
-        loadNews('next-news',currentPage);
-    })
 
     $('.btn-add-news').click(function(){
+        $('#published_date').val(formatDate());
+        $('#published_date').attr('readonly', true);
         $('#addNewsModal').modal('show');
+
     });
 
     $('#addNewsForm').on('submit', function(e){
@@ -68,8 +19,13 @@ $(document).ready(function() {
                     $('#addNewsForm')[0].reset();
                     $('.modal-backdrop').remove();
                     alert('Tin tức đã được thêm thành công!');
-                    let currentPage = $('#page-numbers').val();
-                    loadNews('next-news',currentPage-1);
+                    let currentUrl = window.location.href;
+                    let currentPage = currentUrl.split('page=')[1];
+                    if (currentPage) {
+                        window.location.href = '/admin/manage/news?page='+ currentPage;
+                    } else {
+                        window.location.href = '/admin/manage/news';
+                    }
                 }
             },
             error: function(xhr){
@@ -95,11 +51,10 @@ $(document).ready(function() {
                 newsId: newsId
             },
             success: function(response) {
-
                 $('#editNewsId').val(response.data.id);
                 $('#edit_title').val(response.data.title);
                 $('#edit_content').val(response.data.content);
-                $('#edit_published_date').val(response.data.published_date);
+                $('#edit_published_date').val(response.data.published_date.split(' ')[0]).attr('readonly', true);
                 $('#edit_image').val(response.data.image);
                 $('#editNewsModal').modal('show');
             }
@@ -120,8 +75,13 @@ $(document).ready(function() {
                     $('#editNewsModal').modal('hide');
                     $('.modal-backdrop').remove();
                     alert('Tin tức đã được cập nhật');
-                    let currentPage = $('#page-numbers').val();
-                    loadNews('next-news',currentPage-1);
+                    let currentUrl = window.location.href;
+                    let currentPage = currentUrl.split('page=')[1];
+                    if (currentPage) {
+                        window.location.href = '/admin/manage/news?page='+ currentPage;
+                    } else {
+                        window.location.href = '/admin/manage/news';
+                    }
                 } else {
                     alert(response.message);
                 }
@@ -155,8 +115,13 @@ $(document).ready(function() {
                     if (response.message === 'Xóa tin tức thành công') {
                         row.remove();
                         alert(response.message);
-                        let currentPage = $('#page-numbers').val();
-                        loadNews('next-news',currentPage-1);
+                        let currentUrl = window.location.href;
+                        let currentPage = currentUrl.split('page=')[1];
+                        if (currentPage) {
+                            window.location.href = '/admin/manage/news?page='+ currentPage;
+                        } else {
+                            window.location.href = '/admin/manage/news';
+                        }
                     } else {
                         alert(response.message);
                     }
@@ -178,8 +143,13 @@ function displayErrorsInAlert(errors) {
     alert('Đã xảy ra lỗi:\n' + errorMessages);
 }
 
-function formatDate(dateString) {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-    const date = new Date(dateString);
-    return date.toLocaleString('en-GB', options).replace(',', '');
+function formatDate() {
+    let today = new Date();
+
+    let yyyy = today.getFullYear();
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+    let dd = String(today.getDate()).padStart(2, '0');
+
+    let formattedDate = yyyy + '-' + mm + '-' + dd;
+    return formattedDate;
 }

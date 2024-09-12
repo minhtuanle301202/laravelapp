@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="{{ asset('css/partials-admin/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages-admin/manage_users.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages-admin/manage_products.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pages-admin/manage_products.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages-admin/manage_news.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-admin/manage_orders.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-admin/manage_statistics.css') }}">
+
     <title>@yield('title')</title>
 </head>
 <body>

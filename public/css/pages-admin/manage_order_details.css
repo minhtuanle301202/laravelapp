@@ -1,4 +1,4 @@
-order-info {
+.order-info {
     margin-top: 20px;
 }
 .order-info th, .order-info td {
@@ -13,3 +13,4 @@ order-info {
 .order-details .info-value {
     padding-left: 10px;
 }
+

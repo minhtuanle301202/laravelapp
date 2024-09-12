@@ -90,6 +90,8 @@ $(document).ready(function() {
                     alert('Sản phẩm đã được thêm thành công!');
                     let currentPage = 1;
                     loadProducts('next-products',currentPage-1,categoryId);
+                } else {
+                    alert(response.message);
                 }
             },
             error: function(xhr){

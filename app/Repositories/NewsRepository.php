@@ -52,7 +52,7 @@ class NewsRepository extends BaseRepository
 
     public function getAllNews($perPage)
     {
-        $news = News::activeOrder()->take($perPage)->get();
+        $news = News::activeOrder()->paginate(4);
         return $news;
     }
 

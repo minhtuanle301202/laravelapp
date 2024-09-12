@@ -30,18 +30,6 @@ class AdminService
         return $users;
     }
 
-    public function getNextUsers($page)
-    {
-        $users = $this->adminRepository->getNextUsers($page);
-        return $users;
-    }
-
-    public function getPrevUsers($page)
-    {
-        $users = $this->adminRepository->getPrevUsers($page);
-        return $users;
-    }
-
     public function createUser($validatedData)
     {
         $validatedData['password'] = Hash::make($validatedData['password']);

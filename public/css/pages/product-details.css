@@ -185,9 +185,8 @@
 }
 
 #cart-alert {
-    background-color: #ffffff;
-    color: #77ca64;
-    font-size:14px ;
+    display: none;
+    text-align: center;
 }
 
 

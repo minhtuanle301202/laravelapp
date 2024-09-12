@@ -54,6 +54,7 @@ class ProductVariantsRepository extends BaseRepository
         $duplicate = ProductVariants::where('product_id', $data['product_id'])
             ->where('color', $data['color'])
             ->where('capacity', $data['capacity'])
+            ->where('id','<>',$variantId)
             ->exists();
 
         if ($duplicate) {
@@ -63,8 +64,8 @@ class ProductVariantsRepository extends BaseRepository
             ];
         } else {
            $variant = $this->update($variantId, $data);
-           return ['
-            success' => true,
+           return [
+            'success' => true,
             'error' => ''
            ];
         }

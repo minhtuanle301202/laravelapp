@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/partials/big_news.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages/cart.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages/news_details.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/pages/list_products.css')}}">
     <title>@yield('title')</title>
 </head>
 <body>

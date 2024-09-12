@@ -1,7 +1,6 @@
 @extends('layouts.admin.master')
 @section('title', 'Danh Sách Đơn Hàng')
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/pages-admin/manage_orders.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     @include('layouts.partials-admin.sidebar')
     <div class="main-content col-10">

@@ -5,6 +5,7 @@ use App\Models\Carts;
 use App\Models\CartItems;
 use App\Models\Orders;
 use App\Models\OrderDetails;
+use App\Models\ProductVariants;
 
 class CartRepository extends BaseRepository
 {
@@ -22,6 +23,12 @@ class CartRepository extends BaseRepository
 
     public function createOrUpdateCart($id,$data)
     {
+        $variant = ProductVariants::find($data->variant_id);
+        if ($variant->remain_quantity < $data->quantity) {
+            $cart = null;
+            return $cart;
+        }
+
         $cart = Carts::firstOrNew(['user_id' => $id]);
         $cart->price = 0;
         $cart->quantity = 0;
@@ -92,40 +99,63 @@ class CartRepository extends BaseRepository
         $userId = $user->id;
         $cart = $user->cart;
 
-        if ($cart->cartItems->isEmpty())
-        {
-              return false;
-        }
-
-        $order = Orders::create([
-           'user_id' => $userId,
-            'order_date' => NOW(),
-            'status' => 'Chờ xử lý',
-            'total_price' => $cart->price,
-            'address' => $data->address,
-            'payment_method' => $data->payment_method,
-            'username' => $data->name,
-            'phone' => $data->phone_number,
-        ]);
-
-        $listOrderDetails = [];
-
-        foreach ($cart->cartItems as $cartItem)
-        {
-            $listOrderDetails[] = [
-                'order_id' => $order->id,
-                'product_variants_id' => $cartItem->variants_product_id,
-                'quantity' => $cartItem->quantity,
-                'price' => $cartItem->price,
-                'product_id' => $cartItem->productVariant->product_id,
+        $overStocks = [];
+        foreach ($cart->cartItems as $cartItem) {
+            if ($cartItem->productVariant->remain_quantity < $cartItem->quantity ) {
+                $overStocks[] = [
+                    'name' => $cartItem->productVariant->product->name,
+                    'color' => $cartItem->productVariant->color,
+                    'capacity' => $cartItem->productVariant->capacity,
+                    'remain_quantity' =>$cartItem->productVariant->remain_quantity
                 ];
+            }
         }
 
-        OrderDetails::insert($listOrderDetails);
+        if ($overStocks) {
+            return ['overStocks' => $overStocks,'message' => 'Đặt hàng quá số lượng'];
+        } else {
+            if ($cart->cartItems->isEmpty())
+            {
+                return ['message' => 'Giỏ hàng trống'];
+            }
 
-        $cart->delete();
+            $order = Orders::create([
+                'user_id' => $userId,
+                'order_date' => NOW(),
+                'status' => 'Chờ xử lý',
+                'total_price' => $cart->price,
+                'address' => $data->address,
+                'payment_method' => $data->payment_method,
+                'username' => $data->name,
+                'phone' => $data->phone_number,
+            ]);
 
-        return true;
+            $listOrderDetails = [];
+
+            foreach ($cart->cartItems as $cartItem)
+            {
+                $listOrderDetails[] = [
+                    'order_id' => $order->id,
+                    'product_variants_id' => $cartItem->variants_product_id,
+                    'quantity' => $cartItem->quantity,
+                    'price' => $cartItem->price,
+                    'product_id' => $cartItem->productVariant->product_id,
+                ];
+
+                $productVariant = $cartItem->productVariant;
+                $productVariant->remain_quantity -= $cartItem->quantity;
+                $productVariant->sold_quantity += $cartItem->quantity;
+                $productVariant->save();
+            }
+
+            OrderDetails::insert($listOrderDetails);
+
+            $cart->delete();
+
+            return ['message' => 'Đặt hàng thành công'];
+        }
+
+
     }
 }
 

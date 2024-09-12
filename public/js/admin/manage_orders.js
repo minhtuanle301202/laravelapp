@@ -29,9 +29,8 @@ $(document).ready(function() {
         event.preventDefault();
         let currentPage = $('#page-numbers').val();
         let status = $('#orderStatus').val();
-        let startDate = $('#orderStartDate').val();
-        let endDate = $('#orderEndDate').val();
-
+        let startDate = $('#startDate').val();
+        let endDate = $('#endDate').val();
         if (currentPage > 1) {
             loadOrders('prev-orders',currentPage,status,startDate,endDate);
         }
@@ -41,8 +40,8 @@ $(document).ready(function() {
         event.preventDefault();
         let currentPage = $('#page-numbers').val();
         let status = $('#orderStatus').val();
-        let startDate = $('#orderStartDate').val();
-        let endDate = $('#orderEndDate').val();
+        let startDate = $('#startDate').val();
+        let endDate = $('#endDate').val();
         loadOrders('next-orders',currentPage,status,startDate,endDate);
     })
 
@@ -96,13 +95,19 @@ $(document).ready(function() {
                 orderId: orderId
             },
             success: function(response) {
+                console.log(response);
                 $('#editOrderId').val(response.data.id);
                 $('#editUserName').val(response.data.username);
                 $('#editPhone').val(response.data.phone);
-                $('#editStatus').val(response.data.status);
+                if (response.data.status === 'Đã hủy') {
+                    $('#editOrderStatus').prop('disabled',true);
+                } else {
+                    $('#editOrderStatus').prop('disabled',false);
+                }
+                $('#editOrderStatus').val(response.data.status);
                 $('#editPaymentMethod').val(response.data.payment_method);
                 $('#editAddress').val(response.data.address);
-                $('#editOrderDate').val(response.data.order_date.split(' ')[0]);
+                $('#editOrderDate').val(response.data.order_date.split(' ')[0]).attr('readonly', true);
                 $('#editOrderModal').modal('show');
             }
         });

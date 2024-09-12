@@ -7,7 +7,7 @@ use App\Http\Requests\EditOrderRequest;
 
 class AdminOrderController extends Controller
 {
-    const NUMBER_ORDER_PER_PAGE = 4;
+    const NUMBER_ORDER_PER_PAGE = 8;
     protected OrderService $orderService;
     public function __construct(OrderService $orderService)
     {
