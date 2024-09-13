@@ -36,7 +36,7 @@ class NewsRepository extends BaseRepository
 
     public function show()
     {
-        $news = News::activeOrder()->take(8)->get();
+        $news = News::activeOrder()->paginate(8);
         return $news;
     }
 

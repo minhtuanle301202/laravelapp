@@ -1,3 +1,6 @@
+@if ($variants->isEmpty())
+    <p class="text-center">Không tìm thấy biển thể nào</p>
+    @else
 <table class="table table-bordered">
     <thead>
     <tr>
@@ -11,7 +14,7 @@
         <th>Option</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="variantTableBody">
     @foreach ($variants as $variant)
         <tr>
             <td>{{ $variant->product->name }}</td>
@@ -31,3 +34,7 @@
     @endforeach
     </tbody>
 </table>
+<div class="pagination-variants">
+    {{ $variants->links() }}
+</div>
+@endif

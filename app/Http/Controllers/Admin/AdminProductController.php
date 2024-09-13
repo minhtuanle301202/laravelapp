@@ -50,13 +50,12 @@ class AdminProductController extends Controller
 
     public function handleSearchProduct(Request $request)
     {
-        $products = $this->productService->searchProduct($request,self::NUMBER_PRODUCT_PER_PAGE);
-
-        if ($products->isEmpty()) {
-            return jsonResponse(false, 'Không tìm thấy kết quả');
+        if ($request->ajax()) {
+            $products = $this->productService->searchProduct($request,self::NUMBER_PRODUCT_PER_PAGE);
+            return view('layouts.partials-admin.products',compact('products'))->render();
         } else {
-            $html = view('layouts.partials-admin.products', compact('products'))->render();
-            return jsonResponse(true, 'Thành công', ['products' => $html]);
+            $products = $this->productService->searchProduct($request,self::NUMBER_PRODUCT_PER_PAGE);
+            return view('pages-admin.manage_products', compact('products'));
         }
     }
 

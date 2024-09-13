@@ -1,3 +1,6 @@
+@if($products->isEmpty())
+    <p class="text-center">Không tìm thấy sản phẩm nào</p>
+@else
 <table class="table table-bordered">
     <thead>
     <tr>
@@ -11,7 +14,7 @@
         <th>Option</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="productTableBody">
     @foreach ($products as $index => $product)
         <tr>
             <td><img src="{{ $product->image }}" alt="Product Image" class="img-fluid"></td>
@@ -32,3 +35,7 @@
     @endforeach
     </tbody>
 </table>
+<div class="pagination-products">
+    {{ $products->links() }}
+</div>
+@endif

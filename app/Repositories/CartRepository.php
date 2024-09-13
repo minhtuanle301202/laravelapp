@@ -40,12 +40,13 @@ class CartRepository extends BaseRepository
 
         if ($cartItem) {
             $cartItem->quantity += $data->quantity;
+            $cartItem->price = $cartItem->quantity * $cartItem->productVariant->price;
             $cartItem->save();
         } else {
             $cartItem = new CartItems();
             $cartItem->cart_id = $cart->id;
             $cartItem->variants_product_id = $data->variant_id;
-            $cartItem->price = $data->final_price;
+            $cartItem->price = $data->quantity * $cartItem->productVariant->price;
             $cartItem->quantity = $data->quantity;
             $cartItem->save();
         }

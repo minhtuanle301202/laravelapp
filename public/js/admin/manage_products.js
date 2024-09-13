@@ -1,75 +1,31 @@
 $(document).ready(function() {
-    function loadProducts(request,currentPage,categoryId,productName) {
+
+    let currentUrl = window.location.href;
+    if (currentUrl.includes('productName')) {
+        $(document).on('click', '.pagination-products a', function(e) {
+            e.preventDefault();
+            let url = $(this).attr('href');
+            let page = url.split('page=')[1];
+            let childUrl = '&page=' + page;
+            let newUrl = currentUrl + childUrl;
+            console.log(newUrl);
             $.ajax({
-                url: '/admin/manage/products/' + request,
+                url: newUrl,
                 method: 'GET',
-                data: {
-                    page : currentPage,
-                    categoryId: categoryId,
-                    productName: productName,
-                },
                 success: function(response) {
-                    if (response.message === 'Thành công') {
-                        $('#product-content').html(response.data.products);
-                        if (request === 'prev-products') {
-                            currentPage--;
-                        } else {
-                            currentPage++;
-                        }
-                        $('#page-numbers').val(currentPage);
-                    } else {
-                        alert(response.message);
-                    }
+                    console.log(response);
+                    $('#product-content').html(response);
+                    let url = new URL(window.location.href);
+                    url.searchParams.set('page', page);
+                    window.history.pushState({}, '', url);
+                },
+                error: function(xhr) {
+                    console.log('Something went wrong.');
                 }
             });
+        });
     }
 
-    $('.prev-products').click(function() {
-        event.preventDefault();
-        let currentPage = $('#page-numbers').val();
-        let categoryId = $('#productType').val();
-        let productName = $('#productName').val();
-
-        if (currentPage > 1) {
-            loadProducts('prev-products',currentPage,categoryId,productName);
-        }
-    })
-
-    $('.next-products').click(function() {
-        event.preventDefault();
-        let currentPage = $('#page-numbers').val();
-        let categoryId = $('#productType').val();
-        let productName = $('#productName').val();
-
-        loadProducts('next-products',currentPage,categoryId,productName);
-    })
-
-    $('.btn-search').click(function() {
-        event.preventDefault();
-        let productName = $('#productName').val();
-        let categoryId = $('#productType').val();
-        $('#page-numbers').val(0);
-        let currentPage = $('#page-numbers').val();
-
-            $.ajax({
-                url: '/admin/manage/products/search-product',
-                method: 'GET',
-                data: {
-                    page : currentPage,
-                    productName: productName,
-                    categoryId: categoryId,
-                },
-                success: function(response) {
-                    if (response.message === 'Thành công') {
-                        $('#product-content').html(response.data.products);
-                        currentPage++;
-                        $('#page-numbers').val(currentPage);
-                    } else {
-                        alert(response.message);
-                    }
-                }
-            })
-    })
 
     $('.btn-add-product').click(function(){
         $('#addProductModal').modal('show');
@@ -88,8 +44,7 @@ $(document).ready(function() {
                     $('#addProductForm')[0].reset();
                     $('.modal-backdrop').remove();
                     alert('Sản phẩm đã được thêm thành công!');
-                    let currentPage = 1;
-                    loadProducts('next-products',currentPage-1,categoryId);
+                    location.reload();
                 } else {
                     alert(response.message);
                 }
@@ -142,8 +97,7 @@ $(document).ready(function() {
                     $('#editProductModal').modal('hide');
                     $('.modal-backdrop').remove();
                     alert('Thông tin sản phẩm đã được cập nhật');
-                    let currentPage = $('#page-numbers').val();
-                    loadProducts('next-products',currentPage-1,categoryId);
+                    location.reload();
                 } else {
                     alert(response.message);
                 }
@@ -178,9 +132,26 @@ $(document).ready(function() {
                     if (response.message === 'Xóa sản phẩm thành công') {
                         row.remove();
                         alert(response.message);
-                        let currentPage = $('#page-numbers').val();
-                        console.log(currentPage);
-                        loadProducts('next-products',currentPage-1,categoryId);
+                        let rowCount = $('#productTableBody tr').length;
+                        if (rowCount < 1) {
+                            let currentUrl = window.location.href;
+                            let url = new URL(currentUrl);
+                            let currentPage = currentUrl.split('page=')[1];
+
+                            if (typeof currentPage === 'undefined') {
+                                window.location.href = currentUrl;
+                            } else {
+
+                                if (parseInt(currentPage) === 1) {
+                                    window.location.href = currentUrl;
+                                } else {
+                                    url.searchParams.set('page',parseInt(currentPage)-1) ;
+                                    window.location.href = url.href;
+                                }
+                            }
+                        } else {
+                            location.reload();
+                        }
                     } else {
                         alert(response.message);
                     }

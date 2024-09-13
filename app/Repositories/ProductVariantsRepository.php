@@ -25,8 +25,7 @@ class ProductVariantsRepository extends BaseRepository
     {
         $variants = ProductVariants::where('product_id', $id)
             ->orderBy('id','desc')
-            ->take($perPage)
-            ->get();
+            ->paginate($perPage);
 
         return $variants;
     }

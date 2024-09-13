@@ -33,7 +33,9 @@ $(document).ready(function() {
         // Đảm bảo số lượng không giảm xuống dưới 1
         if (currentQuantity > 1) {
             if (currentQuantity-1 > remainQuantity) {
-                $('.now-quantity-'+cartItemId).val(remainQuantity.toString());
+                $quantityInput.val(remainQuantity.toString());
+                currentQuantity = parseInt($quantityInput.val());
+                updatePrice(currentQuantity,cartItemId);
                 alert('Số lượng sản phẩm tối đa có thể đặt là ' + remainQuantity);
             } else {
                 $quantityInput.val(currentQuantity - 1);
@@ -52,7 +54,9 @@ $(document).ready(function() {
         let remainQuantity = $('.remain-quantity-'+cartItemId).val();
         // Tăng số lượng
         if (currentQuantity+1 > remainQuantity) {
-            $('.now-quantity-'+cartItemId).val(remainQuantity.toString());
+            $quantityInput.val(remainQuantity.toString());
+            currentQuantity = parseInt($quantityInput.val());
+            updatePrice(currentQuantity,cartItemId);
             alert('Số lượng sản phẩm tối đa có thể đặt là ' + remainQuantity);
         } else {
             $quantityInput.val(currentQuantity + 1);

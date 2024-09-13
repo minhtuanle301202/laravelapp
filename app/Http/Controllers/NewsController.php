@@ -48,11 +48,14 @@ class NewsController extends Controller {
         return response()->json($news);
     }
 
-    public function show()
+    public function show(Request $request)
     {
         $news = $this->newsService->show();
-
-        return view('pages.news', compact('news'));
+        if ($request->ajax()) {
+            return view('layouts.partials.list_news',compact('news'))->render();
+        } else {
+            return view('pages.news', compact('news'));
+        }
     }
 
     public function handleGetPreviousNews(Request $request)

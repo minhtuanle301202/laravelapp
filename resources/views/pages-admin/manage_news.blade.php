@@ -10,6 +10,9 @@
                 <button class="btn-add-news" data-toggle="modal" data-target="#addNewsModal">Thêm Tin Tức</button>
             </div>
             <div id="news-content">
+                @if ($news->isEmpty())
+                    <p class="text-center">Không tìm thấy tin tức nào</p>
+                @else
                 <table class="table table-bordered">
                     <thead>
                     <tr>
@@ -36,11 +39,12 @@
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     </tbody>
                 </table>
+                <div class="pagination-news">
+                    {{ $news->links() }}
+                </div>
+                    @endif
+            </div>
 
-            </div>
-            <div class="pagination-news">
-               {{ $news->links() }}
-            </div>
         </div>
     </div>
 

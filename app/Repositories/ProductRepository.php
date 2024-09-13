@@ -50,8 +50,7 @@ class ProductRepository extends BaseRepository
     public function getAllProducts($perPage)
     {
         $products = Products::orderBy('id','desc')
-            ->take($perPage)
-            ->get();
+            ->paginate($perPage);
         return $products;
     }
 
@@ -65,7 +64,7 @@ class ProductRepository extends BaseRepository
             $query->where('name', 'LIKE', '%' . $productName . '%');
         }
 
-        if (!empty($categoryId)) {
+        if (!empty($categoryId) && $categoryId !== "0") {
             $query->where('category_id', $categoryId);
         }
 
@@ -87,8 +86,7 @@ class ProductRepository extends BaseRepository
     {
         $products = $this->findProducts($data)
             ->orderBy('id','desc')
-            ->take($perPage)
-            ->get();
+            ->paginate($perPage);
 
         return $products;
     }

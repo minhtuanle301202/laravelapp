@@ -18,15 +18,6 @@
                 @include('layouts.partials-admin.product_variants', ['variants' => $variants])
             </div>
             <meta name="csrf-token" content="{{ csrf_token() }}">
-            <input type="hidden" name="page-numbers"  id="page-numbers" value="1">
-            <div class="pagination-variants">
-                <button id="prev-variants" class="prev-variants">
-                    << Previous
-                </button>
-                <button id="next-variants" class="next-variants">
-                    Next >>
-                </button>
-            </div>
         </div>
     </div>
 

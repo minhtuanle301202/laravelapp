@@ -4,22 +4,25 @@
     @include('layouts.partials-admin.sidebar')
     <div class="main-content col-10">
         <div class="container">
+            <form class="form-search-product" action="{{  route('admin.manage.products.search') }}" method="GET">
             <div class="row align-items-end ml-3">
                 <div class="col-md-5 pl-0">
                     <label for="productType">Loại sản phẩm</label>
-                    <select class="form-control" id="productType">
-                        <option value="0">Tất cả</option>
+                    <select class="form-control" id="productType" name="categoryId">
+                        <option value="0" {{ request('categoryId') == 0 ? 'selected' : '' }}>Tất cả</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{ request('categoryId') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-5">
                     <label for="productName">Tên sản phẩm:</label>
-                    <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm">
+                    <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm" name="productName" value="{{ request('productName') }}">
                 </div>
             </div>
-            <button class="btn btn-primary btn-search ml-3 mt-2 mb-4">Tìm kiếm</button>
+                <button class="btn btn-primary btn-search ml-3 mt-2 mb-4" type="submit">Tìm kiếm</button>
+            </form>
+
             <div class="top-content ml-3">
                 <h2>Danh Sách Sản Phẩm</h2>
                 <button class=" btn-add-product" data-toggle="modal" data-target="#addProductModal">Thêm Sản Phẩm</button>
@@ -28,15 +31,6 @@
                 @include('layouts.partials-admin.products',['products' => $products])
             </div>
             <meta name="csrf-token" content="{{ csrf_token() }}">
-            <input type="hidden" name="page-numbers"  id="page-numbers" value="1">
-            <div class="pagination-products">
-                <button id="prev-products" class="prev-products">
-                    << Previous
-                </button>
-                <button id="next-products" class="next-products">
-                    Next >>
-                </button>
-            </div>
         </div>
     </div>
 

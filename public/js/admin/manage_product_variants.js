@@ -1,43 +1,5 @@
 $(document).ready(function() {
     let productId = $('#TypeVariants').val();
-    function loadVariants(request,currentPage) {
-        $.ajax({
-            url: '/admin/manage/products/' + productId + '/variants/' + request,
-            method: 'GET',
-            data: {
-                page : currentPage,
-                productId:productId
-            },
-            success: function(response) {
-                if (response.message === 'Thành công') {
-                    $('#variants-content').html(response.data.variants);
-                    if (request === 'prev-variants') {
-                        currentPage--;
-                    } else {
-                        currentPage++;
-                    }
-                    $('#page-numbers').val(currentPage);
-                } else {
-                    alert(response.message);
-                }
-            }
-        });
-    }
-
-    $('.prev-variants').click(function() {
-        event.preventDefault();
-        let currentPage = $('#page-numbers').val();
-
-        if (currentPage > 1) {
-            loadVariants('prev-variants',currentPage);
-        }
-    })
-
-    $('.next-variants').click(function() {
-        event.preventDefault();
-        let currentPage = $('#page-numbers').val();
-        loadVariants('next-variants',currentPage);
-    })
 
     $('.btn-add-variant').click(function(){
         $('#addVariantModal').modal('show');
@@ -55,8 +17,7 @@ $(document).ready(function() {
                     $('#addVariantForm')[0].reset();
                     $('.modal-backdrop').remove();
                     alert('Biến thể đã được thêm thành công!');
-                    let currentPage = 1;
-                    loadVariants('next-variants',currentPage-1,productId);
+                    location.reload();
                 } else {
                     alert(response.message);
                 }
@@ -110,8 +71,7 @@ $(document).ready(function() {
                     $('#editVariantForm')[0].reset();
                     $('.modal-backdrop').remove();
                     alert('Thông tin biến thể đã được cập nhật');
-                    let currentPage = $('#page-numbers').val();
-                    loadVariants('next-variants',currentPage-1);
+                    location.reload();
                 } else {
                     alert(response.message);
                 }
@@ -145,9 +105,27 @@ $(document).ready(function() {
                     if (response.message === 'Xóa biến thể thành công') {
                         row.remove();
                         alert(response.message);
-                        let currentPage = $('#page-numbers').val();
-                        console.log(currentPage);
-                        loadVariants('next-variants',currentPage-1);
+                        let rowCount = $('#variantTableBody tr').length;
+                        if (rowCount < 1) {
+                            let currentUrl = window.location.href;
+                            let url = new URL(currentUrl);
+                            let currentPage = currentUrl.split('page=')[1];
+
+                            if (typeof currentPage === 'undefined') {
+                                window.location.href = currentUrl;
+                            } else {
+
+                                console.log(url.href,currentPage);
+                                if (parseInt(currentPage) === 1) {
+                                    window.location.href = currentUrl;
+                                } else {
+                                    url.searchParams.set('page',parseInt(currentPage)-1) ;
+                                    window.location.href = url.href;
+                                }
+                            }
+                        } else {
+                            location.reload();
+                        }
                     } else {
                         alert(response.message);
                     }

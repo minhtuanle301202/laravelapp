@@ -9,6 +9,9 @@
                 <button class=" btn-add-user" data-toggle="modal" data-target="#addUserModal">Thêm Tài Khoản</button>
             </div>
             <div id="users-content">
+                @if ($users->isEmpty())
+                    <p class="text-center">Không tìm thấy tài khoản nào</p>
+                @else
                 <table class="table table-bordered">
                     <thead>
                     <tr>
@@ -39,11 +42,13 @@
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     </tbody>
                 </table>
+                    <div class="pagination-users">
+                        {{ $users->links() }}
+                    </div>
+                @endif
             </div>
 
-            <div class="pagination-users">
-               {{ $users->links() }}
-            </div>
+
         </div>
     </div>
 
